@@ -18,12 +18,12 @@ window.PORTFOLIO = {
         {
           title: "Winter 2025",
           images: [
-            ["assets/winter25a_front.png", "Winter 2025 · front"],
-            ["assets/winter25a_back.png", "Winter 2025 · back"]
+            ["assets/winter25a_back.png", "Winter 2025 · front"],
+            ["assets/winter25a_front.png", "Winter 2025 · back"]
           ]
         },
         {
-          title: "Hanami",
+          title: "Hanami · Весна",
           images: [
             ["assets/hanami_front.png", "Hanami · front"],
             ["assets/hanami_back.png", "Hanami · back"]
@@ -32,8 +32,8 @@ window.PORTFOLIO = {
         {
           title: "Summer",
           images: [
-            ["assets/summer_front.png", "Summer · front"],
-            ["assets/summer_back.png", "Summer · back"]
+            ["assets/summer_back.png", "Summer · front"],
+            ["assets/summer_front.png", "Summer · back"]
           ]
         },
         {
@@ -44,21 +44,21 @@ window.PORTFOLIO = {
           ]
         },
         {
-          title: "Winter 2025 · version 2",
+          title: "Спешл зимний",
           images: [
-            ["assets/winter25b_front.png", "Winter 2025 · version 2 · front"],
-            ["assets/winter25b_back.png", "Winter 2025 · version 2 · back"]
+            ["assets/winter25b_front.png", "Спешл зимний · front"],
+            ["assets/winter25b_back.png", "Спешл зимний · back"]
           ]
         },
         {
-          title: "Winter / Spring",
+          title: "Весна",
           images: [
-            ["assets/winter_spring_front.png", "Winter / Spring · front"],
-            ["assets/winter_spring_back.png", "Winter / Spring · back"]
+            ["assets/winter_spring_back.png", "Весна · front"],
+            ["assets/winter_spring_front.png", "Весна · back"]
           ]
         },
         {
-          title: "Halloween",
+          title: "Halloween · одностороннее спешл-меню",
           images: [
             ["assets/halloween-cover-original.jpg", "Halloween"]
           ]
@@ -81,14 +81,6 @@ window.PORTFOLIO = {
         ["assets/sber-concept-bistro.png", "J’Pan Bistro"],
         ["assets/sber-concept-japan.png", "Японский коллаж"],
         ["assets/sber-concept-shiba-food.png", "Сиба и блюдо"]
-      ],
-      process: [
-        "assets/sber-layout-1.png",
-        "assets/sber-layout-2.png",
-        "assets/sber-layout-3.png",
-        "assets/sber-layout-4.png",
-        "assets/sber-layout-5.png",
-        "assets/sber-layout-6.png"
       ]
     },
     {
@@ -139,7 +131,8 @@ window.PORTFOLIO = {
           title: "Autumn Pack",
           images: [
             ["assets/autumn-pack-1.png", ""],
-            ["assets/autumn-pack-2.png", ""]
+            ["assets/autumn-pack-2.png", ""],
+            ["assets/autumn-pack-3.png", ""]
           ]
         },
         {
@@ -155,8 +148,7 @@ window.PORTFOLIO = {
           images: [
             ["assets/valentine-1.png", ""],
             ["assets/valentine-2.png", ""],
-            ["assets/valentine-3.png", ""],
-            ["assets/valentine-4.png", ""]
+            ["assets/valentine-3.png", ""]
           ]
         }
       ]
@@ -171,7 +163,6 @@ window.PORTFOLIO = {
       images: [
         ["assets/hero-winter-panel.png", "Winter panel"],
         ["assets/dragon.png", "Dragon"],
-        ["assets/shiba_dragon.png", "Shiba Dragon"],
         ["assets/wonka.png", "Wonka"],
         ["assets/postcard.png", "Postcard"],
         ["assets/nye.png", "New Year"]
