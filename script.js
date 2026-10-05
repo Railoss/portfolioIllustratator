@@ -68,7 +68,7 @@ d.projects.forEach(p=>{
   const s=document.createElement('section');
   s.className='project';
   s.id=p.id;
-  s.innerHTML=`<div class="project__head"><p class="project__index">${p.index}</p><div><p class="project__label">${p.label}</p><h2>${p.title}</h2></div><p class="project__desc">${p.text}</p></div>`;
+  s.innerHTML=`<div class="project__head"><div class="project__meta"><span class="project__index">${p.index}</span><span class="project__label">${p.label}</span></div><h2 class="project__title">${p.title}</h2><p class="project__desc">${p.text}</p></div>`;
   if(p.pairs) s.appendChild(pairGallery(p.pairs));
   else if(p.images) s.appendChild(gallery(p.images,p.layout));
 
