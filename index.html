@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f0eb">
+  <meta name="description" content="Портфолио коммерческого векторного иллюстратора">
+  <title>Сергей — коммерческий векторный иллюстратор</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__name" href="#top" data-name>Сергей</a>
+    <div class="nav__links"><a href="#work">Работы</a><a href="#about">Обо мне</a><a class="contact-link" href="#contacts">Контакты</a></div>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <img src="assets/hero-winter-panel.png" alt="Зимняя панорамная иллюстрация J’Pan" fetchpriority="high">
+      <div class="hero__veil"></div>
+      <div class="hero__copy">
+        <p class="micro">Портфолио · коммерческая иллюстрация</p>
+        <h1><span data-name>Сергей</span><small data-role></small></h1>
+        <p data-lead></p>
+      </div>
+    </section>
+    <section class="about" id="about">
+      <p class="section-index">00</p>
+      <h2>Коммерческая векторная иллюстрация.</h2>
+      <p class="about__text" data-about></p>
+    </section>
+    <div id="work"></div>
+    <footer id="contacts">
+      <div><p class="micro">Контакты</p><h2>Связаться</h2><div id="contacts-list"></div></div>
+      <p class="footer__line"><span data-name>Сергей</span><span>© <span id="year"></span></span></p>
+    </footer>
+  </main>
+  <dialog id="lightbox" class="lightbox">
+    <button class="lightbox__close" aria-label="Закрыть">×</button>
+    <button class="lightbox__prev" aria-label="Предыдущее">←</button>
+    <figure><img id="lightbox-img" alt=""><figcaption id="lightbox-cap"></figcaption></figure>
+    <button class="lightbox__next" aria-label="Следующее">→</button>
+  </dialog>
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
