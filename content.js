@@ -53,8 +53,8 @@ window.PORTFOLIO = {
         {
           title: "Весна",
           images: [
-            ["assets/winter_spring_back.png", "Весна · front"],
-            ["assets/winter_spring_front.png", "Весна · back"]
+            ["assets/winter_spring_front.png", "Весна · front"],
+            ["assets/winter_spring_back.png", "Весна · back"]
           ]
         },
         {
@@ -70,7 +70,7 @@ window.PORTFOLIO = {
       index: "02",
       label: "J’Pan × Сбер Прайм",
       title: "Банковские карты",
-      text: "Финальные иллюстрации, варианты компоновки и дополнительные концепты под формат карты, чип и брендинг.",
+      text: "Финальные иллюстрации и дополнительные концепты для банковских карт J’Pan × Сбер Прайм.",
       layout: "sber",
       images: [
         ["assets/sber-night-final.png", "Ночная улица"],
@@ -115,8 +115,8 @@ window.PORTFOLIO = {
       id: "small",
       index: "04",
       label: "J’Pan · малый формат",
-      title: "Стикеры и наборы",
-      text: "Серийные ассеты, рассчитанные на небольшой размер и быстрое считывание.",
+      title: "Наборы стикеров",
+      text: "Серии стикеров для J’Pan, рассчитанные на небольшой формат и быстрое считывание.",
       layout: "small",
       groups: [
         {
@@ -158,7 +158,7 @@ window.PORTFOLIO = {
       index: "05",
       label: "Selected work",
       title: "Другие работы",
-      text: "Дополнительные коммерческие иллюстрации из исходного набора.",
+      text: "Отдельные коммерческие иллюстрации для J’Pan, не входящие в серии выше.",
       layout: "selected",
       images: [
         ["assets/hero-winter-panel.png", "Winter panel"],
