@@ -144,3 +144,26 @@ body { margin: 0; background: light-dark(#f4f1eb, #22231f); }
 #sergey-portfolio-concept .sp-sailor{background:light-dark(#e9dfec,#3b2c42)}
 #sergey-portfolio-concept .sp-sailor img{width:44%;height:100%;object-fit:contain}
 #sergey-portfolio-concept .sp-case-publications{margin-top:30px}
+
+#sergey-portfolio-concept .sp-case-nav{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 18px;background:var(--paper);border-bottom:1px solid var(--rule);margin-bottom:26px}
+#sergey-portfolio-concept .sp-case-nav button{border:1px solid var(--rule);background:none;border-radius:22px;padding:10px 14px;font-size:12px;line-height:1.5;text-align:left}
+#sergey-portfolio-concept .sp-case-nav button:hover{border-color:var(--accent);color:var(--accent)}
+#sergey-portfolio-concept .sp-gallery-heading{scroll-margin-top:130px}
+#sergey-portfolio-concept .sp-media-art{width:100%;border:0;position:relative;cursor:zoom-in}
+#sergey-portfolio-concept .sp-media-art::after,#sergey-portfolio-concept .sp-hero-view::after{content:'⤢';position:absolute;right:12px;bottom:12px;display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink);font-size:23px}
+#sergey-portfolio-concept .sp-hero-view{display:block;position:relative;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+#sergey-portfolio-concept .sp-lightbox{position:fixed;inset:0;width:min(1400px,96vw);height:94dvh;max-width:96vw;max-height:94dvh;margin:auto;padding:18px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);overflow:hidden}
+#sergey-portfolio-concept .sp-lightbox[open]{display:flex;flex-direction:column;gap:14px}
+#sergey-portfolio-concept .sp-lightbox::backdrop{background:#000b}
+#sergey-portfolio-concept .sp-lightbox-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex-shrink:0}
+#sergey-portfolio-concept .sp-lightbox button,#sergey-portfolio-concept .sp-lightbox-toolbar a{padding:10px 14px;min-height:44px;border:1px solid var(--rule);border-radius:24px;background:none;font-size:12px;line-height:1.5;text-decoration:none;white-space:nowrap}
+#sergey-portfolio-concept .sp-lightbox-toolbar [data-image-close]{margin-left:auto}
+#sergey-portfolio-concept .sp-lightbox-stage{flex:1;min-height:0;overflow:auto;position:relative;background:var(--stage);overscroll-behavior:contain}
+#sergey-portfolio-concept .sp-lightbox-stage img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in}
+#sergey-portfolio-concept .sp-lightbox-zoomed .sp-lightbox-stage{display:block}
+#sergey-portfolio-concept .sp-lightbox-zoomed .sp-lightbox-stage img{position:static;transform:none;width:var(--image-width);max-width:none;max-height:none;cursor:zoom-out}
+#sergey-portfolio-concept .sp-lightbox-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;line-height:1.5;flex-shrink:0}
+#sergey-portfolio-concept .sp-lightbox-bottom p{min-width:0;text-align:center}
+#sergey-portfolio-concept .sp-lightbox button:disabled{opacity:.35;cursor:default}
+@media(max-width:680px){#sergey-portfolio-concept .sp-gallery-heading{scroll-margin-top:210px}#sergey-portfolio-concept .sp-lightbox{padding:12px;gap:10px}#sergey-portfolio-concept .sp-lightbox-toolbar{gap:7px}#sergey-portfolio-concept .sp-lightbox button,#sergey-portfolio-concept .sp-lightbox-toolbar a{padding:10px;font-size:11px}}
+#sergey-portfolio-concept .sp-gallery-subheading{grid-column:1 / -1;font-size:16px;font-weight:500;letter-spacing:-.02em;margin:0;padding-top:12px}
