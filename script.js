@@ -36,7 +36,7 @@
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей / J’PAN';
       ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
       gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);
-      function publicationLink(label,url){const a=document.createElement('a');a.textContent=label+' ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='cursor-interaction';return a}
+      function publicationLink(label,url){const a=document.createElement('a');a.textContent='Ссылка на релиз ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='sp-release-link cursor-interaction';a.title=label;a.setAttribute('aria-label','Ссылка на релиз: '+label);return a}
       publications.replaceChildren();
       sectionNav.replaceChildren();sectionNav.hidden=Object.keys(p.groups||{}).length<3;
       const usedLinks=new Set();
@@ -53,8 +53,16 @@
         if(Number.isInteger(linkIndex)){const [linkLabel,url]=p.proof.links[linkIndex];if(!usedLinks.has(url)){caption.append(publicationLink(linkLabel,url));usedLinks.add(url)}}
         figure.append(visual,caption);gallery.append(figure);
       });
-      p.proof.links.forEach(([label,url])=>{if(!usedLinks.has(url)){publications.append(publicationLink(label,url));usedLinks.add(url)}});
+      p.proof.links.forEach(([label,url])=>{if(!usedLinks.has(url)){const card=document.createElement('div'),context=document.createElement('span');card.className='sp-release-card';context.className='sp-release-context';context.textContent=label;card.append(context,publicationLink(label,url));publications.append(card);usedLinks.add(url)}});
       publications.hidden=!publications.childElementCount;
+      if(!publications.hidden){const heading=document.createElement('h3');heading.className='sp-release-heading';heading.textContent='Релизы проекта';publications.prepend(heading)}
+      let row=[];
+      function centerRow(){if(row.length%2)row.at(-1).classList.add('sp-media-single');row=[]}
+      for(const child of gallery.children){
+        if(child.tagName!=='FIGURE'||child.style.gridColumn){centerRow();continue}
+        row.push(child);
+      }
+      centerRow();
       home.hidden=true;detail.hidden=false;root.scrollIntoView({block:'start',behavior:'auto'});root.querySelector('[data-return]').focus({preventScroll:true});announce('Проект: '+p.title);
     }
     function route(){
