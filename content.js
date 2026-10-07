@@ -131,13 +131,13 @@ window.PORTFOLIO_DATA = {
         ],
         [
           "restored43",
-          "Вёрстка зимнего меню — моя работа, страница 1",
+          "Вёрстка зимнего меню · страница 1",
           1,
           false
         ],
         [
           "restored44",
-          "Вёрстка зимнего меню — моя работа, страница 2",
+          "Вёрстка зимнего меню · страница 2",
           1,
           false
         ],
@@ -261,7 +261,7 @@ window.PORTFOLIO_DATA = {
         "19": "Первое меню J’PAN"
       },
       "subheadings": {
-        "2": "Вёрстка меню — моя работа",
+        "2": "Вёрстка меню",
         "4": "Меню в публикации J’PAN"
       }
     },
@@ -683,7 +683,7 @@ window.PORTFOLIO_DATA = {
     "stickerTwo": "assets/previews/autumn-sticker-2.webp",
     "stickerThree": "assets/previews/autumn-sticker-3.webp",
     "dragon": "assets/previews/dragon.webp",
-    "restored47": "assets/previews/halloween-cover-original.webp",
+    "restored47": "assets/halloween-cover-original.jpg",
     "halloweenSticker": "assets/previews/halloween-pack-1.webp",
     "halloween-pack1": "assets/previews/halloween-pack-1.webp",
     "halloween-pack2": "assets/previews/halloween-pack-2.webp",
