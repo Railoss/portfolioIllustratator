@@ -687,3 +687,25 @@ footer h2{font-size:54px}
   .gallery--menu-layout{grid-template-columns:1fr}
   .gallery--menu-layout .art img{aspect-ratio:auto}
 }
+
+/* Menu layout: secondary supporting material */
+.gallery--menu-layout{
+  width:min(100%,680px) !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:18px !important;
+  margin-inline:auto !important;
+  align-items:start !important
+}
+.gallery--menu-layout .art img{
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:auto !important;
+  object-fit:contain !important;
+  background:transparent !important
+}
+@media(max-width:720px){
+  .gallery--menu-layout{
+    width:min(100%,520px) !important;
+    grid-template-columns:1fr !important
+  }
+}
