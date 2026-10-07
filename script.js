@@ -1,7 +1,7 @@
 (()=>{
   document.getElementById('year').textContent=new Date().getFullYear();
 
-  const figures=[...document.querySelectorAll('figure.art')];
+  const figures=[...document.querySelectorAll('figure.art, figure.proof-card')];
   const all=figures.map(f=>{
     const img=f.querySelector('img');
     const cap=f.querySelector('figcaption');
