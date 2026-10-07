@@ -577,3 +577,64 @@ footer h2{font-size:54px}
   .gallery--selected{display:grid;grid-template-columns:1fr}
   .gallery--selected .art:first-child{grid-column:1}
 }
+
+/* Proof system: one size everywhere */
+.proof-block,
+.proof-block--inline,
+.proof-block--group{
+  margin-top:clamp(78px,7vw,112px)
+}
+.proof-media-grid,
+.proof-media-grid--three,
+.proof-media-grid--four,
+#hanami-merch .proof-media-grid{
+  grid-template-columns:repeat(auto-fit,260px) !important;
+  justify-content:center !important;
+  gap:22px !important
+}
+.proof-card,
+#hanami-merch .proof-card,
+.proof-card--portrait{
+  width:260px !important;
+  max-width:260px !important;
+  height:195px !important;
+  aspect-ratio:auto !important;
+  padding:0 !important;
+  border-radius:10px !important;
+  overflow:hidden !important
+}
+.proof-card img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important
+}
+.proof-links,
+.proof-links--compact{
+  margin-top:clamp(36px,3.5vw,52px) !important
+}
+
+@media(max-width:620px){
+  .proof-block,
+  .proof-block--inline,
+  .proof-block--group{
+    margin-top:56px
+  }
+  .proof-media-grid,
+  .proof-media-grid--three,
+  .proof-media-grid--four,
+  #hanami-merch .proof-media-grid{
+    grid-template-columns:repeat(2,145px) !important;
+    gap:12px !important
+  }
+  .proof-card,
+  #hanami-merch .proof-card,
+  .proof-card--portrait{
+    width:145px !important;
+    max-width:145px !important;
+    height:109px !important
+  }
+  .proof-links,
+  .proof-links--compact{
+    margin-top:30px !important
+  }
+}
