@@ -489,3 +489,24 @@ footer h2{font-size:54px}
   }
   .proof-card{max-width:145px}
 }
+
+/* Final proof corrections */
+.proof-links--standalone{
+  margin-top:clamp(34px,4vw,52px)
+}
+.proof-card--portrait{
+  aspect-ratio:3/4
+}
+.gallery--merch .art{
+  background:transparent
+}
+.gallery--merch .art img{
+  height:auto;
+  max-height:900px;
+  object-fit:contain;
+  background:transparent
+}
+@media(max-width:620px){
+  .proof-links--standalone{margin-top:28px}
+  .gallery--merch .art img{max-height:none}
+}
