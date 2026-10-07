@@ -3,429 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f2f0eb">
-  <meta name="description" content="Портфолио Сергея — коммерческого векторного иллюстратора">
-  <title>Сергей — коммерческий векторный иллюстратор</title>
+  <meta name="theme-color" content="#f4f1eb">
+  <meta name="description" content="Сергей — коммерческий векторный иллюстратор. Сотрудничество с J’PAN в 2022–2025: сезонные меню, интерьер, мерч и коллаборации.">
+  <title>Сергей — иллюстрация для J’PAN · 2022–2025</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles-mobilefix.css?v=20261007-2026">
+  <link rel="stylesheet" href="styles.css?v=20261007-portfolio">
+  <script src="content.js?v=20261007-portfolio" defer></script>
+  <script src="script.js?v=20261007-portfolio" defer></script>
 </head>
 <body>
-  <header class="nav">
-    <a class="nav__name" href="#top">Сергей</a>
-    <div class="nav__links">
-      <a href="#work">Работы</a>
-      <a href="#about">Обо мне</a>
-    </div>
+<div id="sergey-portfolio-concept">
+
+  <header class="sp-header">
+    <button type="button" class="sp-brand cursor-interaction" data-home aria-label="Сергей — на главную"><span class="sp-brand-mark" aria-hidden="true">✳</span> Сергей</button>
+    <nav class="sp-nav" aria-label="Навигация портфолио"><button type="button" class="cursor-interaction" data-jump="sp-work">Работы</button><button type="button" class="cursor-interaction" data-jump="sp-about">Обо мне</button></nav>
   </header>
-
-  <main id="top">
-    <section class="hero">
-      <img src="https://railoss.github.io/portfolioIllustratator/assets/hero-winter-panel.png" alt="Зимняя панорамная иллюстрация J’Pan" fetchpriority="high">
-      <div class="hero__veil"></div>
-      <div class="hero__copy">
-        <p class="micro">Портфолио · коммерческая иллюстрация</p>
-        <h1>Сергей<small>Коммерческий векторный иллюстратор</small></h1>
-        <p>Иллюстрации для брендов, сезонных кампаний и физических носителей.</p>
+  <main class="sp-home">
+    <section class="sp-intro">
+      <div><p class="sp-label">Долгосрочное сотрудничество · 2022–2025</p><h1>Иллюстрация<br>для <em>J’PAN.</em></h1></div>
+      <div class="sp-intro-copy"><p>Создавал иллюстрации для сезонных меню, интерьера, мерча и коллабораций бренда.</p><button type="button" class="sp-text-link cursor-interaction" data-jump="sp-work">Смотреть работы <span aria-hidden="true">↘</span></button></div>
+    </section>
+    <figure class="sp-hero"><img src="assets/hero-winter-panel.png" data-asset="hero" fetchpriority="high" decoding="async" alt="Зимняя панорама J’PAN: гора Фудзи и сиба-ину у костра"><figcaption class="sp-hero-caption"><span>J’PAN · Зимняя панорама</span><span>От небольшой открытки до большого пространства</span></figcaption></figure>
+    <section class="sp-section" id="sp-work">
+      <div class="sp-section-head"><h2>Избранные проекты</h2><span class="sp-label">Один бренд · Разные задачи</span></div>
+      <div class="sp-grid">
+        <button type="button" class="sp-project cursor-interaction" data-project="menus" aria-label="Открыть проект: Сезонные меню J’PAN"><span class="sp-project-art sp-menus"><img src="assets/winter25a_back.png" data-asset="winterFront" alt="Зимняя обложка J’PAN"><img src="assets/hanami_front.png" data-asset="springFront" alt="Весенняя обложка Hanami"></span><span class="sp-project-meta"><span><span class="sp-project-title">Сезонные меню</span><span class="sp-project-label">J’PAN / Обложки и большие сцены</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
+        <button type="button" class="sp-project cursor-interaction" data-project="bank" aria-label="Открыть проект: J’PAN × СберПрайм"><span class="sp-project-art sp-bank"><img src="assets/sber-night-final.png" data-asset="bankNight" alt="Банковская карта с ночной улицей"><img src="assets/sber-sakura-final.png" data-asset="bankSpring" alt="Банковская карта с садом и сакурой"></span><span class="sp-project-meta"><span><span class="sp-project-title">J’PAN × СберПрайм</span><span class="sp-project-label">Лимитированные банковские карты</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
+        <button type="button" class="sp-project cursor-interaction" data-project="panel" aria-label="Открыть проект: Интерьерное панно"><span class="sp-project-art sp-panel"><img src="assets/proofs/panel-source-hi.svg" data-asset="panel" alt="Иллюстрация для интерьерного панно J’PAN"></span><span class="sp-project-meta"><span><span class="sp-project-title">История на всю стену</span><span class="sp-project-label">J’PAN / Интерьерное панно</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
+        <button type="button" class="sp-project cursor-interaction" data-project="merch" aria-label="Открыть проект: Hanami — фестивальный мерч"><span class="sp-project-art sp-merch"><img src="assets/proofs/hanami-print-1-cropped.svg" data-asset="merchOne" alt="Первый принт Hanami"><img src="assets/proofs/hanami-print-2-cropped.svg" data-asset="merchTwo" alt="Второй принт Hanami"></span><span class="sp-project-meta"><span><span class="sp-project-title">Hanami</span><span class="sp-project-label">J’PAN / Фестивальный мерч</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
+        <button type="button" class="sp-project cursor-interaction" data-project="series" aria-label="Открыть проект: World Cuisines"><span class="sp-project-art sp-series"><img src="assets/world-cuisines-1.png" data-asset="worldOne" alt="Первая иллюстрация серии World Cuisines"><img src="assets/world-cuisines-2.png" data-asset="worldTwo" alt="Вторая иллюстрация серии World Cuisines"><img src="assets/world-cuisines-3.png" data-asset="worldThree" alt="Третья иллюстрация серии World Cuisines"></span><span class="sp-project-meta"><span><span class="sp-project-title">World Cuisines</span><span class="sp-project-label">Серийная иллюстрация / Ресторанная подача</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
+        <button type="button" class="sp-project cursor-interaction" data-project="stickers" aria-label="Открыть проект: Сезонные стикеры"><span class="sp-project-art sp-stickers"><img src="assets/autumn-sticker-1.png" data-asset="stickerOne" alt="Осенний стикер J’PAN"><img src="assets/autumn-sticker-2.png" data-asset="stickerTwo" alt="Второй осенний стикер J’PAN"><img src="assets/autumn-sticker-3.png" data-asset="stickerThree" alt="Третий осенний стикер J’PAN"></span><span class="sp-project-meta"><span><span class="sp-project-title">Маленькие персонажи</span><span class="sp-project-label">J’PAN / Сезонные стикеры</span></span><span class="sp-arrow" aria-hidden="true">Открыть проект ↗</span></span></button>
       </div>
     </section>
-
-    <section class="about" id="about">
-      <p class="section-index">00</p>
-      <h2>Обо мне</h2>
-      <div class="about__text">
-        <p>Текст будет добавлен.</p>
-      </div>
-    </section>
-
-    <div id="work">
-      <section class="project" id="covers">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">01</span><span class="project__label">J’Pan · сезонные кампании</span></div>
-          <h2 class="project__title">Обложки и большие сцены</h2>
-          <div class="project__desc">
-            <p>Обложки и крупные иллюстрации для сезонных и специальных меню J’PAN. Парные front/back-композиции и отдельные односторонние форматы.</p>
-          </div>
-        </div>
-
-        <div class="cover-pairs">
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Winter 2025</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter25a_back.png" alt="Winter 2025 · front"><figcaption>Winter 2025 · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter25a_front.png" alt="Winter 2025 · back"><figcaption>Winter 2025 · back</figcaption></figure>
-            </div>
-            <div class="proof-block proof-block--inline">
-              <div class="proof-media-grid">
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/winter-menu-live-exact.svg" alt="Winter 2025 · использование"></figure>
-              </div>
-              <div class="proof-links">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/4542" target="_blank" rel="noopener">Winter 2025 - 1</a>
-              </div>
-            </div>
-
-            <div class="menu-layout-case">
-              <div class="menu-layout-case__head">
-                <h4>Вёрстка меню</h4>
-                <p>Помимо обложки, сверстал внутренние страницы меню: сетку, размещение фотографий, названий, составов и цен.</p>
-              </div>
-              <div class="gallery gallery--menu-layout">
-                <figure class="art">
-                  <img src="https://scdn.tomesto.ru/img/place/000/036/850/bistro-j-pan-na-ulitse-lva-tolstogo_a0e3c_full-614437.jpg" alt="Вёрстка меню J’PAN · пример 1">
-                  <figcaption>Вёрстка меню · 1</figcaption>
-                </figure>
-                <figure class="art">
-                  <img src="https://scdn.tomesto.ru/img/place/000/036/422/bistro-j-pan-na-bolshoy-dmitrovke_b6d92_full-614476.jpg" alt="Вёрстка меню J’PAN · пример 2">
-                  <figcaption>Вёрстка меню · 2</figcaption>
-                </figure>
-              </div>
-              <div class="proof-links proof-links--compact">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/5231" target="_blank" rel="noopener">Меню - 1</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Hanami · Весна</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/hanami_front.png" alt="Hanami · front"><figcaption>Hanami · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/hanami_back.png" alt="Hanami · back"><figcaption>Hanami · back</figcaption></figure>
-            </div>
-            <div class="proof-block proof-block--inline">
-              <div class="proof-media-grid">
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/spring-menu-live.svg" alt="Hanami · Весна · использование"></figure>
-              </div>
-              <div class="proof-links">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/1567" target="_blank" rel="noopener">Hanami - 1</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Summer</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/summer_back.png" alt="Summer · front"><figcaption>Summer · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/summer_front.png" alt="Summer · back"><figcaption>Summer · back</figcaption></figure>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Halloween · одностороннее спешл-меню</h3>
-            <div class="gallery gallery--covers gallery--covers-single">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/halloween-cover-original.jpg" alt="Halloween"><figcaption>Halloween</figcaption></figure>
-            </div>
-            <div class="proof-block proof-block--inline">
-              <div class="proof-media-grid">
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/halloween-menu-live.svg" alt="Halloween · использование"></figure>
-              </div>
-              <div class="proof-links">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/730" target="_blank" rel="noopener">Halloween - 1</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Спешл зима 2024</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter25b_front.png" alt="Спешл зима 2024 · front"><figcaption>Спешл зима 2024 · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter25b_back.png" alt="Спешл зима 2024 · back"><figcaption>Спешл зима 2024 · back</figcaption></figure>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Весна</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter_spring_front.png" alt="Весна · front"><figcaption>Весна · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter_spring_back.png" alt="Весна · back"><figcaption>Весна · back</figcaption></figure>
-            </div>
-            <div class="proof-block proof-block--inline">
-              <div class="proof-media-grid">
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/topoftop-live.svg" alt="Весна · TOP OF THE TOP"></figure>
-              </div>
-              <div class="proof-links">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/1355" target="_blank" rel="noopener">Весна - 1</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Winter 2023</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter23_front.png" alt="Winter 2023 · front"><figcaption>Winter 2023 · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/winter23_back.png" alt="Winter 2023 · back"><figcaption>Winter 2023 · back</figcaption></figure>
-            </div>
-            <div class="proof-links proof-links--standalone">
-              <span>Материалы</span>
-              <a href="https://www.afisha.ru/uploads/menu/5/6/566d4a3b-f27c-4c99-b11a-181e25a225c9.pdf" target="_blank" rel="noopener">Afisha - 1</a>
-            </div>
-          </div>
-
-          <div class="cover-pair">
-            <h3 class="cover-pair__title">Первое меню J’PAN</h3>
-            <div class="gallery gallery--covers">
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/first-menu-front.svg" alt="Первое меню J’PAN · front"><figcaption>Первое меню J’PAN · front</figcaption></figure>
-              <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/first-menu-back.svg" alt="Первое меню J’PAN · back"><figcaption>Первое меню J’PAN · back</figcaption></figure>
-            </div>
-            <div class="proof-block proof-block--inline">
-              <div class="proof-media-grid">
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/autumn-live-1.svg" alt="Первое меню J’PAN · использование 1"></figure>
-                <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/autumn-live-2.svg" alt="Первое меню J’PAN · использование 2"></figure>
-              </div>
-              <div class="proof-links">
-                <span>Материалы</span>
-                <a href="https://t.me/jpan_bistro/659" target="_blank" rel="noopener">Первое меню - 1</a>
-                <a href="https://www.afisha.ru/uploads/menu/f/4/f24cc6dc-7de5-4f35-b9a7-17c300e832ae.pdf" target="_blank" rel="noopener">Afisha - 1</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="sber">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">02</span><span class="project__label">J’Pan × Сбер Прайм</span></div>
-          <h2 class="project__title">Банковские карты</h2>
-          <div class="project__desc">
-            <p>Иллюстрации для лимитированных дебетовых карт J’PAN × СберПрайм. Два финальных дизайна были выпущены; ниже — дополнительные концепты.</p>
-          </div>
-        </div>
-
-        <div class="gallery gallery--sber">
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sber-night-final.png" alt="Ночная улица"><figcaption>Ночная улица</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sber-sakura-final.png" alt="Сад и сакура"><figcaption>Сад и сакура</figcaption></figure>
-        </div>
-
-        <div class="concepts">
-          <h3 class="concepts__title">Дополнительные концепты</h3>
-          <div class="gallery gallery--concepts">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sber-concept-bistro.png" alt="J’Pan Bistro"><figcaption>J’Pan Bistro</figcaption></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sber-concept-japan.png" alt="Японский коллаж"><figcaption>Японский коллаж</figcaption></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sber-concept-shiba-food.png" alt="Сиба и блюдо"><figcaption>Сиба и блюдо</figcaption></figure>
-          </div>
-        </div>
-        <div class="proof-block">
-          <div class="proof-media-grid">
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sber-live-1.svg" alt="СберПрайм · публикация 1"></figure>
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sber-live-2.svg" alt="СберПрайм · публикация 2"></figure>
-          </div>
-          <div class="proof-links">
-            <span>Материалы</span>
-            <a href="https://vk.ru/wall-41978256_94825" target="_blank" rel="noopener">СберПрайм - 1</a>
-            <a href="https://www.facebook.com/jpan.bistro/posts/1280555507421337/" target="_blank" rel="noopener">СберПрайм - 2</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="series">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">03</span><span class="project__label">J’Pan · серии</span></div>
-          <h2 class="project__title">Серийные иллюстрации</h2>
-          <div class="project__desc">
-            <p>Серии иллюстраций, собранные в единой стилистике под разные носители.</p>
-          </div>
-        </div>
-
-        <div class="series-group">
-          <h3 class="series-group__title">World Cuisines</h3>
-          <p class="group-desc">Серия иллюстраций-марок для оформления подачи и съёмок.</p>
-          <div class="gallery gallery--series">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/world-cuisines-1.png" alt="World Cuisines 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/world-cuisines-2.png" alt="World Cuisines 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/world-cuisines-3.png" alt="World Cuisines 3"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/world-cuisines-4.png" alt="World Cuisines 4"></figure>
-          </div>
-          <div class="proof-block proof-block--group">
-            <div class="proof-media-grid">
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/world-live-1.svg" alt="World Cuisines · использование 1"></figure>
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/world-live-2.svg" alt="World Cuisines · использование 2"></figure>
-            </div>
-            <div class="proof-links proof-links--compact">
-              <span>Материалы</span>
-              <a href="https://t.me/jpan_bistro/2047" target="_blank" rel="noopener">World Cuisines - 1</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="series-group">
-          <h3 class="series-group__title">Sailor Moon</h3>
-          <p class="group-desc">Серия для тематического меню: меню, промо и флажки для блюд.</p>
-          <div class="gallery gallery--series">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sailor-moon-1.png" alt="Sailor Moon 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sailor-moon-2.png" alt="Sailor Moon 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sailor-moon-3.png" alt="Sailor Moon 3"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/sailor-moon-4.png" alt="Sailor Moon 4"></figure>
-          </div>
-          <div class="proof-block proof-block--group">
-            <div class="proof-media-grid proof-media-grid--four">
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sailor-live-1.svg" alt="Sailor Moon · использование 1"></figure>
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sailor-live-2.svg" alt="Sailor Moon · использование 2"></figure>
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sailor-live-3.svg" alt="Sailor Moon · использование 3"></figure>
-              <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/sailor-live-4.svg" alt="Sailor Moon · использование 4"></figure>
-            </div>
-            <div class="proof-links proof-links--compact">
-              <span>Материалы</span>
-              <a href="https://t.me/jpan_bistro/1172" target="_blank" rel="noopener">Sailor Moon - 1</a>
-              <a href="https://t.me/jpan_bistro/1182" target="_blank" rel="noopener">Sailor Moon - 2</a>
-              <a href="https://t.me/jpan_bistro/1190" target="_blank" rel="noopener">Sailor Moon - 3</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="small">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">04</span><span class="project__label">J’Pan · малый формат</span></div>
-          <h2 class="project__title">Наборы стикеров</h2>
-          <div class="project__desc">
-            <p>Сезонные наборы стикеров для J’PAN. Использовались в соцсетях и промо-механиках.</p>
-          </div>
-        </div>
-
-        <div class="small-group">
-          <h3 class="small-group__title">Autumn</h3>
-          <div class="gallery gallery--small">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-sticker-1.png" alt="Autumn sticker 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-sticker-2.png" alt="Autumn sticker 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-sticker-3.png" alt="Autumn sticker 3"></figure>
-          </div>
-        </div>
-
-        <div class="small-group">
-          <h3 class="small-group__title">Autumn Pack</h3>
-          <div class="gallery gallery--small">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-pack-1.png" alt="Autumn Pack 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-pack-2.png" alt="Autumn Pack 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/autumn-pack-3.png" alt="Autumn Pack 3"></figure>
-          </div>
-        </div>
-
-        <div class="small-group">
-          <h3 class="small-group__title">Halloween</h3>
-          <div class="gallery gallery--small">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/halloween-pack-1.png" alt="Halloween sticker 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/halloween-pack-2.png" alt="Halloween sticker 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/halloween-pack-3.png" alt="Halloween sticker 3"></figure>
-          </div>
-        </div>
-
-        <div class="small-group">
-          <h3 class="small-group__title">14 February</h3>
-          <div class="gallery gallery--small">
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/valentine-1.png" alt="14 February sticker 1"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/valentine-2.png" alt="14 February sticker 2"></figure>
-            <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/valentine-3.png" alt="14 February sticker 3"></figure>
-          </div>
-        </div>
-        <div class="proof-block">
-          <div class="proof-media-grid">
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/halloween-sticker-live.svg" alt="Halloween · использование"></figure>
-          </div>
-          <div class="proof-links">
-            <span>Материалы</span>
-            <a href="https://t.me/jpan_bistro/735" target="_blank" rel="noopener">Halloween - 1</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="panel">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">05</span><span class="project__label">J’Pan · интерьер</span></div>
-          <h2 class="project__title">Интерьерное панно</h2>
-          <div class="project__desc">
-            <p>Иллюстрация для крупноформатного панно J’PAN на Чаянова, 22с4.</p>
-          </div>
-        </div>
-
-        <div class="case-main case-main--wide">
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/panel-source-hi.svg" alt="Интерьерное панно J’PAN · исходная иллюстрация"><figcaption>Исходная иллюстрация</figcaption></figure>
-        </div>
-
-        <div class="proof-block">
-          <div class="proof-media-grid">
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/panel-proof-1.svg" alt="Панно J’PAN · публикация 1"></figure>
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/panel-proof-3.svg" alt="Панно J’PAN · публикация 2"></figure>
-          </div>
-          <div class="proof-links">
-            <span>Материалы</span>
-            <a href="https://t.me/jpan_bistro/1533" target="_blank" rel="noopener">Панно - 1</a>
-            <a href="https://t.me/jpan_bistro/5065" target="_blank" rel="noopener">Панно - 2</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="hanami-merch">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">06</span><span class="project__label">J’Pan · мерч</span></div>
-          <h2 class="project__title">Hanami · мерч</h2>
-          <div class="project__desc">
-            <p>Два принта для фестивального мерча Hanami.</p>
-          </div>
-        </div>
-
-        <div class="gallery gallery--merch">
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/hanami-print-1-cropped.svg" alt="Hanami · принт 1"><figcaption>Hanami · принт 1</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/hanami-print-2-cropped.svg" alt="Hanami · принт 2"><figcaption>Hanami · принт 2</figcaption></figure>
-        </div>
-
-        <div class="proof-block">
-          <div class="proof-media-grid">
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/hanami-merch-proof.svg" alt="Hanami · мерч в использовании"></figure>
-          </div>
-          <div class="proof-links">
-            <span>Материалы</span>
-            <a href="https://www.instagram.com/reel/Cqm26mFvVLe/?igshid=YmMyMTA2M2Y%3D" target="_blank" rel="noopener">Hanami - 1</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="project" id="selected">
-        <div class="project__head">
-          <div class="project__meta"><span class="project__index">07</span><span class="project__label">Selected work</span></div>
-          <h2 class="project__title">Другие работы</h2>
-          <div class="project__desc">
-            <p>Отдельные иллюстрации для J’PAN, не входящие в серии выше.</p>
-          </div>
-        </div>
-
-        <div class="gallery gallery--selected">
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/hero-winter-panel.png" alt="Winter panel"><figcaption>Winter panel</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/dragon.png" alt="Dragon"><figcaption>Dragon</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/postcard.png" alt="Postcard"><figcaption>Postcard</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/nye.png" alt="New Year"><figcaption>New Year</figcaption></figure>
-          <figure class="art"><img src="https://railoss.github.io/portfolioIllustratator/assets/wonka.png" alt="Wonka"><figcaption>Wonka</figcaption></figure>
-        </div>
-
-        <div class="proof-block">
-          <div class="proof-media-grid">
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/wonka-live.svg" alt="Wonka · использование"></figure>
-            <figure class="proof-card"><img src="https://railoss.github.io/portfolioIllustratator/assets/proofs/newyear-live.svg" alt="New Year · использование"></figure>
-          </div>
-          <div class="proof-links">
-            <span>Материалы</span>
-            <a href="https://t.me/jpan_bistro/2657" target="_blank" rel="noopener">Wonka - 1</a>
-            <a href="https://t.me/jpan_bistro/1012" target="_blank" rel="noopener">New Year - 1</a>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <footer id="contacts">
-      <div><p class="micro">Контакты</p><h2>Связаться</h2><div id="contacts-list"></div></div>
-      <p class="footer__line"><span>Сергей</span><span>© <span id="year"></span></span></p>
-    </footer>
+    <section class="sp-about" id="sp-about"><div><p class="sp-label">Сергей / Коммерческий иллюстратор</p><h2>От сцены<br>к носителю.</h2></div><div class="sp-about-copy"><p>С 2022 по 2025 работал с J’PAN: создавал отдельные сюжеты и серии, адаптировал иллюстрации для печати, мерча и ресторанного пространства.</p><p>Здесь собраны проекты этого сотрудничества — от небольших стикеров до интерьерного панно.</p></div></section>
   </main>
+  <section class="sp-case" hidden aria-label="Страница проекта">
+    <button type="button" class="sp-case-back cursor-interaction" data-return>← Все проекты</button>
+    <div class="sp-case-head"><div><p class="sp-label" data-case-label></p><h2 data-case-title></h2></div><p data-case-description></p></div>
+    <div class="sp-case-info"><div><span>Клиент</span><div data-case-client></div></div><div><span>Моя работа</span><div data-case-role></div></div><div><span>Носитель</span><div data-case-format></div></div></div>
+    <div class="sp-case-publications" aria-label="Публикации проекта"></div>
+    <div class="sp-case-gallery"></div>
+  </section>
+  <footer class="sp-footer"><span>Сергей<br>Коммерческий векторный иллюстратор</span><span>Сцены / Серии / Персонажи</span></footer>
+  <span class="sr-only" aria-live="polite" data-announcement></span>
 
-  <dialog id="lightbox" class="lightbox">
-    <button class="lightbox__close" aria-label="Закрыть">×</button>
-    <button class="lightbox__prev" aria-label="Предыдущее">←</button>
-    <figure><img id="lightbox-img" alt=""><figcaption id="lightbox-cap"></figcaption></figure>
-    <button class="lightbox__next" aria-label="Следующее">→</button>
-  </dialog>
 
-  <script src="script.js"></script>
+</div>
+
 </body>
 </html>

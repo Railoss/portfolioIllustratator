@@ -1,59 +1,50 @@
 (()=>{
-  document.getElementById('year').textContent=new Date().getFullYear();
-
-  const figures=[...document.querySelectorAll('figure.art, figure.proof-card')];
-  const all=figures.map(f=>{
-    const img=f.querySelector('img');
-    const cap=f.querySelector('figcaption');
-    return {
-      src:img.getAttribute('src'),
-      cap:cap?cap.textContent:(img.getAttribute('alt')||'')
-    };
-  });
-
-  const dlg=document.getElementById('lightbox');
-  const li=document.getElementById('lightbox-img');
-  const lc=document.getElementById('lightbox-cap');
-  let cur=0;
-
-  function draw(){
-    const x=all[cur];
-    if(!x)return;
-    li.src=x.src;
-    li.alt=x.cap||'Иллюстрация';
-    lc.textContent=x.cap||'';
-  }
-
-  function open(i){
-    cur=i;
-    draw();
-    dlg.showModal();
-    document.body.style.overflow='hidden';
-  }
-
-  function close(){
-    dlg.close();
-    document.body.style.overflow='';
-  }
-
-  function move(n){
-    if(!all.length)return;
-    cur=(cur+n+all.length)%all.length;
-    draw();
-  }
-
-  figures.forEach((f,i)=>{
-    f.addEventListener('click',()=>open(i));
-  });
-
-  dlg.querySelector('.lightbox__close').onclick=close;
-  dlg.querySelector('.lightbox__prev').onclick=()=>move(-1);
-  dlg.querySelector('.lightbox__next').onclick=()=>move(1);
-  dlg.addEventListener('click',e=>{if(e.target===dlg)close();});
-  document.addEventListener('keydown',e=>{
-    if(!dlg.open)return;
-    if(e.key==='ArrowLeft')move(-1);
-    if(e.key==='ArrowRight')move(1);
-    if(e.key==='Escape')close();
-  });
-})();
+    const root=document.getElementById('sergey-portfolio-concept');
+    const {assets,projects}=window.PORTFOLIO_DATA;
+    const home=root.querySelector('.sp-home'),detail=root.querySelector('.sp-case'),gallery=root.querySelector('.sp-case-gallery'),publications=root.querySelector('.sp-case-publications');
+    let previous=null,pending=null;
+    const homeTitle=document.title;
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    function announce(text){root.querySelector('[data-announcement]').textContent=text}
+    function showHome(){detail.hidden=true;home.hidden=false;document.title=homeTitle;announce('Главная страница портфолио')}
+    function cancelPending(){clearTimeout(pending);pending=null}
+    function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
+    function openProject(key,trigger){
+      const p=projects[key];if(!p)return;previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей / J’PAN';
+      ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
+      gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);
+      function publicationLink(label,url){const a=document.createElement('a');a.textContent=label+' ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='cursor-interaction';return a}
+      publications.replaceChildren();
+      p.proof.links.forEach(([label,url])=>publications.append(publicationLink(label,url)));
+      p.media.forEach(([asset,alt,linkIndex,published,wide])=>{
+        const figure=document.createElement('figure'),visual=document.createElement('div'),img=document.createElement('img'),caption=document.createElement('figcaption'),label=document.createElement('span');
+        figure.classList.toggle('sp-media-published',!!published);if(wide)figure.style.gridColumn='1 / -1';
+        visual.className='sp-media-art';img.src=assets[asset];img.alt=alt;img.dataset.asset=asset;label.textContent=alt;visual.append(img);caption.append(label);
+        if(published)caption.append(publicationLink('Публикация',p.proof.links[linkIndex][1]));
+        figure.append(visual,caption);gallery.append(figure);
+      });
+      home.hidden=true;detail.hidden=false;root.scrollIntoView({block:'start',behavior:'auto'});root.querySelector('[data-return]').focus({preventScroll:true});announce('Проект: '+p.title);
+    }
+    function route(){
+      cancelPending();
+      const key=location.hash.startsWith('#project-')?location.hash.slice(9):null;
+      if(key&&Object.hasOwn(projects,key)){openProject(key);return}
+      const wasDetail=!detail.hidden;showHome();
+      const target=location.hash==='#sp-work'?root.querySelector('#sp-work'):location.hash==='#sp-about'?root.querySelector('#sp-about'):root;
+      target.scrollIntoView({block:'start',behavior:'auto'});
+      if(wasDetail&&previous){previous.focus({preventScroll:true});previous.scrollIntoView({block:'center',behavior:'auto'})}
+    }
+    root.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
+      cancelPending();previous=button;
+      if(!reduceMotion.matches){button.querySelector('.sp-project-art').animate([
+        {transform:'none'},{transform:'translate(-2px,0) rotate(-.4deg)'},{transform:'translate(2px,-1px) rotate(.4deg)'},{transform:'none'}
+      ],{duration:260,easing:'ease-out'})}
+      pending=setTimeout(()=>{const hash='#project-'+button.dataset.project;if(location.hash===hash)openProject(button.dataset.project,button);else location.hash=hash},reduceMotion.matches?0:200);
+    }));
+    root.querySelectorAll('[data-jump]').forEach(button=>button.addEventListener('click',()=>jump(button.dataset.jump)));
+    root.querySelector('[data-home]').addEventListener('click',()=>{cancelPending();history.pushState(null,'',location.pathname+location.search);route();root.scrollIntoView({block:'start',behavior:'auto'})});
+    root.querySelector('[data-return]').addEventListener('click',()=>jump('sp-work'));
+    root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!detail.hidden)root.querySelector('[data-return]').click()});
+    window.addEventListener('hashchange',route);
+    route();
+  })();
