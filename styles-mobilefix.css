@@ -638,3 +638,52 @@ footer h2{font-size:54px}
     margin-top:30px !important
   }
 }
+
+/* Winter 2025 menu layout subsection */
+.menu-layout-case{
+  margin-top:clamp(86px,8vw,128px);
+  padding-top:clamp(34px,4vw,52px);
+  border-top:1px solid var(--line)
+}
+.menu-layout-case__head{
+  display:grid;
+  grid-template-columns:minmax(240px,.55fr) minmax(320px,1fr);
+  gap:clamp(28px,5vw,72px);
+  align-items:start;
+  margin-bottom:clamp(34px,4vw,52px)
+}
+.menu-layout-case__head h4{
+  margin:0;
+  font-size:clamp(30px,3.4vw,52px);
+  line-height:1;
+  letter-spacing:-.045em
+}
+.menu-layout-case__head p{
+  margin:0;
+  max-width:720px;
+  font-size:clamp(18px,1.35vw,22px);
+  line-height:1.5;
+  color:#4f4b45
+}
+.gallery--menu-layout{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(18px,2vw,30px);
+  width:min(100%,980px);
+  margin-inline:auto;
+  align-items:start
+}
+.gallery--menu-layout .art img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  background:#fff
+}
+.menu-layout-case .proof-links{
+  margin-top:clamp(40px,4vw,58px) !important
+}
+
+@media(max-width:720px){
+  .menu-layout-case__head{grid-template-columns:1fr;gap:14px}
+  .gallery--menu-layout{grid-template-columns:1fr}
+  .gallery--menu-layout .art img{aspect-ratio:auto}
+}
