@@ -34,7 +34,7 @@
     function cancelPending(){clearTimeout(pending);pending=null;transition.hidden=true}
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
     function openProject(key,trigger){
-      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей / J’PAN';
+      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей Белик / J’PAN';
       ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
       gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);
       function publicationLink(label,url){const a=document.createElement('a');a.textContent='Ссылка на релиз ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='sp-release-link cursor-interaction';a.title=label;a.setAttribute('aria-label','Ссылка на релиз: '+label);return a}
