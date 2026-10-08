@@ -5,6 +5,7 @@
     let previous=null,pending=null;
     const homeTitle=document.title;
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    const transition=root.querySelector('.sp-project-transition');
     const sectionNav=root.querySelector('.sp-case-nav'),viewer=root.querySelector('.sp-lightbox'),viewerImage=viewer.querySelector('img'),viewerStage=viewer.querySelector('.sp-lightbox-stage'),zoomButton=viewer.querySelector('[data-image-zoom]');
     let imageList=[],imageIndex=0,savedOverflow='';
     function setZoom(zoomed){viewer.classList.toggle('sp-lightbox-zoomed',zoomed);if(zoomed)viewerImage.style.setProperty('--image-width',Math.max(viewerImage.naturalWidth,viewerStage.clientWidth*2)+'px');zoomButton.textContent=zoomed?'Вписать':'Увеличить';zoomButton.setAttribute('aria-pressed',String(zoomed));viewerStage.scrollTo(0,0)}
@@ -30,7 +31,7 @@
     function announce(text){root.querySelector('[data-announcement]').textContent=text}
     function scrollToGroup(heading,behavior){heading.style.scrollMarginTop=(sectionNav.hidden?12:sectionNav.getBoundingClientRect().height+12)+'px';heading.scrollIntoView({block:'start',behavior})}
     function showHome(){closeImage();detail.hidden=true;home.hidden=false;document.title=homeTitle;announce('Главная страница портфолио')}
-    function cancelPending(){clearTimeout(pending);pending=null}
+    function cancelPending(){clearTimeout(pending);pending=null;transition.hidden=true}
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей / J’PAN';
@@ -76,15 +77,24 @@
     }
     root.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
       cancelPending();previous=button;
-      if(!reduceMotion.matches){button.querySelector('.sp-project-art').animate([
-        {transform:'none'},{transform:'translate(-2px,0) rotate(-.4deg)'},{transform:'translate(2px,-1px) rotate(.4deg)'},{transform:'none'}
-      ],{duration:260,easing:'ease-out'})}
-      pending=setTimeout(()=>{const hash='#project-'+button.dataset.project;if(location.hash===hash)openProject(button.dataset.project,button);else location.hash=hash},reduceMotion.matches?0:200);
+      const hash='#project-'+button.dataset.project;
+      if(reduceMotion.matches){
+        if(location.hash!==hash)history.pushState(null,'',hash);
+        route();
+        return;
+      }
+      transition.hidden=false;
+      pending=setTimeout(()=>{
+        pending=null;
+        if(location.hash!==hash)history.pushState(null,'',hash);
+        route();
+      },1000);
     }));
     root.querySelectorAll('[data-jump]').forEach(button=>button.addEventListener('click',()=>jump(button.dataset.jump)));
     root.querySelector('[data-home]').addEventListener('click',()=>{cancelPending();history.pushState(null,'',location.pathname+location.search);route();root.scrollIntoView({block:'start',behavior:'auto'})});
     root.querySelector('[data-return]').addEventListener('click',()=>jump('sp-work'));
     root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click()});
     window.addEventListener('hashchange',route);
+    window.addEventListener('popstate',route);
     route();
   })();
