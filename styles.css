@@ -8,7 +8,7 @@
     #sergey-portfolio-concept p,#sergey-portfolio-concept h1,#sergey-portfolio-concept h2,#sergey-portfolio-concept h3{margin:0}
     #sergey-portfolio-concept .sp-header{padding:23px 36px;display:flex;justify-content:space-between;align-items:center;gap:24px;border-bottom:1px solid var(--rule)}
     #sergey-portfolio-concept .sp-brand{font-size:21px;letter-spacing:-.06em;background:none;border:0;padding:0;text-align:left;font-weight:500;display:flex;gap:12px;align-items:center}
-    #sergey-portfolio-concept .sp-brand-mark{color:var(--accent);font-size:24px}
+    #sergey-portfolio-concept .sp-brand-mark{display:block;flex:0 0 32px;width:32px;height:32px;object-fit:contain}
     #sergey-portfolio-concept .sp-nav{display:flex;gap:26px}
     #sergey-portfolio-concept .sp-nav button{font-size:13px;padding:4px 0;border:0;background:none}
     #sergey-portfolio-concept .sp-label{font-size:11px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase}
