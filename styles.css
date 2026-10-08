@@ -192,8 +192,19 @@ body { margin: 0; background: light-dark(#f4f1eb, #22231f); }
 }
 #sergey-portfolio-concept .sp-case-gallery .sp-media-published{max-width:540px}
 
-/* One-second full-screen project transition. */
+/* One-second full-logo orbit: the orange corner stretches into a line,
+   traces a rounded rectangle around the stationary blue monogram,
+   and returns to its original corner shape. */
 #sergey-portfolio-concept .sp-project-transition{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--paper);pointer-events:all}
-#sergey-portfolio-concept .sp-project-transition img{width:clamp(112px,24vw,152px);height:auto;animation:sp-ribbon-spin 1s cubic-bezier(.45,.06,.55,.94) both}
-@keyframes sp-ribbon-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){#sergey-portfolio-concept .sp-project-transition img{animation:none}}
+#sergey-portfolio-concept .sp-transition-logo{display:block;width:clamp(112px,24vw,152px);height:auto;overflow:visible}
+#sergey-portfolio-concept .sp-transition-blue{fill:none;stroke:#6082A8;stroke-width:41;stroke-linecap:round;stroke-linejoin:round}
+#sergey-portfolio-concept .sp-transition-orbit{fill:none;stroke:#D7755A;stroke-width:34;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5.7 94.3;stroke-dashoffset:0;animation:sp-corner-orbit 1s linear both}
+@keyframes sp-corner-orbit{
+  0%{stroke-dasharray:5.7 94.3;stroke-dashoffset:0}
+  14%{stroke-dasharray:14 86;stroke-dashoffset:-9}
+  26%{stroke-dasharray:19 81;stroke-dashoffset:-24}
+  75%{stroke-dasharray:19 81;stroke-dashoffset:-77}
+  89%{stroke-dasharray:12 88;stroke-dashoffset:-91}
+  100%{stroke-dasharray:5.7 94.3;stroke-dashoffset:-100}
+}
+@media(prefers-reduced-motion:reduce){#sergey-portfolio-concept .sp-transition-orbit{animation:none}}
