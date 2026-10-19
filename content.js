@@ -1,5 +1,6 @@
 window.PORTFOLIO_DATA = {
   "assets": {
+    "imaginationFlood": "assets/imagination-flood.webp",
     "hero": "assets/hero-winter-panel.png",
     "winterFront": "assets/winter25a_back.png",
     "winterBack": "assets/winter25a_front.png",
@@ -73,6 +74,20 @@ window.PORTFOLIO_DATA = {
     "restored70": "assets/proofs/sailor-live-4.svg"
   },
   "projects": {
+    "imagination-flood": {
+      "title": "Imagination Flood",
+      "label": "Личный проект / Векторная иллюстрация · 2026",
+      "description": "Книжный магазин после закрытия: страницы превращаются в море, бумажные рыбы оживают, а книга вспархивает с полки.",
+      "client": "Личный проект",
+      "role": "Векторная иллюстрация",
+      "format": "Цифровая иллюстрация",
+      "personal": true,
+      "wide": true,
+      "proof": { "links": [] },
+      "media": [
+        ["imaginationFlood", "Imagination Flood · Полная иллюстрация", null, false, true]
+      ]
+    },
     "menus": {
       "title": "Сезонные меню",
       "label": "J’PAN / Сезонные кампании",
@@ -676,6 +691,7 @@ window.PORTFOLIO_DATA = {
     }
   },
   "previews": {
+    "imaginationFlood": "assets/previews/imagination-flood.webp",
     "autumn-pack1": "assets/previews/autumn-pack-1.webp",
     "autumn-pack2": "assets/previews/autumn-pack-2.webp",
     "autumn-pack3": "assets/previews/autumn-pack-3.webp",
@@ -749,6 +765,7 @@ window.PORTFOLIO_DATA = {
     "worldFour": "assets/previews/world-cuisines-4.webp"
   },
   "dimensions": {
+    "imaginationFlood": [3600, 2546],
     "autumn-pack1": [
       2000,
       2000

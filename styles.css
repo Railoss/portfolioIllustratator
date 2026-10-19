@@ -208,3 +208,10 @@ body { margin: 0; background: light-dark(#f4f1eb, #22231f); }
   100%{stroke-dasharray:5.7 94.3;stroke-dashoffset:-100}
 }
 @media(prefers-reduced-motion:reduce){#sergey-portfolio-concept .sp-transition-orbit{animation:none}}
+
+/* A complete landscape illustration, shown without cropping at every size. */
+#sergey-portfolio-concept .sp-project-featured{grid-column:1 / -1}
+#sergey-portfolio-concept .sp-project-art.sp-imagination{height:auto;aspect-ratio:3600 / 2546;padding:0;background:#1c3047}
+#sergey-portfolio-concept .sp-imagination img{width:100%;height:100%;object-fit:contain}
+#sergey-portfolio-concept .sp-case-gallery.sp-case-illustration .sp-media-art{height:auto;aspect-ratio:3600 / 2546;padding:0;background:none}
+#sergey-portfolio-concept .sp-case-gallery.sp-case-illustration img{width:100%;height:100%;max-height:none;object-fit:contain}

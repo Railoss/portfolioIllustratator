@@ -34,9 +34,10 @@
     function cancelPending(){clearTimeout(pending);pending=null;transition.hidden=true}
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
     function openProject(key,trigger){
-      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей Белик / J’PAN';
+      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей Белик'+(p.personal?'':' / J’PAN');
       ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
-      gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);
+      root.querySelector('[data-case-client]').previousElementSibling.textContent=p.personal?'Проект':'Клиент';
+      gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);gallery.classList.toggle('sp-case-illustration',!!p.personal);
       function publicationLink(label,url){const a=document.createElement('a');a.textContent='Ссылка на релиз ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='sp-release-link cursor-interaction';a.title=label;a.setAttribute('aria-label','Ссылка на релиз: '+label);return a}
       publications.replaceChildren();
       sectionNav.replaceChildren();sectionNav.hidden=Object.keys(p.groups||{}).length<3;
