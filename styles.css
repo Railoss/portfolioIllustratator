@@ -15,7 +15,6 @@
     #sergey-portfolio-concept .sp-intro{padding:49px 36px 38px;display:grid;grid-template-columns:1.65fr 1fr;gap:28px;align-items:end}
     #sergey-portfolio-concept .sp-intro .sp-label{color:var(--accent);margin-bottom:22px}
     #sergey-portfolio-concept h1{font-weight:500;font-size:clamp(40px,6.9vw,78px);line-height:1.01;letter-spacing:-.07em}
-    #sergey-portfolio-concept h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.045em}
     #sergey-portfolio-concept .sp-intro-copy{max-width:360px;padding-bottom:5px}
     #sergey-portfolio-concept .sp-intro-copy p{font-size:17px;line-height:1.5}
     #sergey-portfolio-concept .sp-intro-copy p+p{margin-top:16px}
@@ -61,7 +60,7 @@
     @keyframes sp-work-jiggle{0%,100%{transform:none}25%{transform:translate(-2px,0) rotate(-.4deg)}55%{transform:translate(2px,-1px) rotate(.4deg)}78%{transform:translate(-1px,0) rotate(-.2deg)}}
     @media(prefers-reduced-motion:reduce){#sergey-portfolio-concept .sp-project:hover .sp-project-art{animation:none}#sergey-portfolio-concept .sp-arrow{transition:none}}
     #sergey-portfolio-concept .sp-about{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;padding:48px 36px 64px;border-top:1px solid var(--rule)}
-    #sergey-portfolio-concept .sp-about h2{font-family:Georgia,'Times New Roman',serif;font-size:43px;font-weight:400;font-style:italic;letter-spacing:-.04em;margin-top:16px}
+    #sergey-portfolio-concept .sp-about h2{font-size:43px;font-weight:500;letter-spacing:-.04em;margin-top:16px}
     #sergey-portfolio-concept .sp-about-copy{max-width:490px;font-size:19px;line-height:1.55}
     #sergey-portfolio-concept .sp-about-copy p+p{font-size:13px;color:var(--sub);margin-top:20px}
     #sergey-portfolio-concept .sp-footer{padding:22px 36px;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;gap:20px;font-size:12px;line-height:1.6}
