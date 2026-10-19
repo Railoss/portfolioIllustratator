@@ -16,8 +16,9 @@
     #sergey-portfolio-concept .sp-intro .sp-label{color:var(--accent);margin-bottom:22px}
     #sergey-portfolio-concept h1{font-weight:500;font-size:clamp(40px,6.9vw,78px);line-height:1.01;letter-spacing:-.07em}
     #sergey-portfolio-concept h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.045em}
-    #sergey-portfolio-concept .sp-intro-copy{max-width:270px;padding-bottom:5px}
+    #sergey-portfolio-concept .sp-intro-copy{max-width:360px;padding-bottom:5px}
     #sergey-portfolio-concept .sp-intro-copy p{font-size:17px;line-height:1.5}
+    #sergey-portfolio-concept .sp-intro-copy p+p{margin-top:16px}
     #sergey-portfolio-concept .sp-text-link{display:inline-flex;align-items:center;gap:20px;padding:14px 0 6px;background:none;border:0;border-bottom:1px solid var(--ink);font-size:13px}
     #sergey-portfolio-concept .sp-hero{margin:0 36px}
     #sergey-portfolio-concept .sp-hero img{width:100%;aspect-ratio:2.18;object-fit:contain;background:#cde0e5}
@@ -64,8 +65,9 @@
     #sergey-portfolio-concept .sp-about-copy{max-width:490px;font-size:19px;line-height:1.55}
     #sergey-portfolio-concept .sp-about-copy p+p{font-size:13px;color:var(--sub);margin-top:20px}
     #sergey-portfolio-concept .sp-footer{padding:22px 36px;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;gap:20px;font-size:12px;line-height:1.6}
-    #sergey-portfolio-concept .sp-case{padding:34px 36px 60px}
-    #sergey-portfolio-concept .sp-case-back{background:none;border:0;border-bottom:1px solid var(--rule);padding:0 0 10px;font-size:13px}
+    #sergey-portfolio-concept .sp-case{padding:34px 36px 100px}
+    #sergey-portfolio-concept .sp-case-back{position:fixed;left:max(20px,calc((100vw - 1200px) / 2 + 36px));bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:10;display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:12px 20px;border:1px solid var(--rule);border-radius:28px;background:var(--paper);box-shadow:0 4px 24px #22251f20;font-size:14px;line-height:1.5}
+    #sergey-portfolio-concept .sp-case-back:hover{border-color:var(--accent);color:var(--accent)}
     #sergey-portfolio-concept .sp-case-head{padding:38px 0 30px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:end}
     #sergey-portfolio-concept .sp-case-head h2{font-size:clamp(36px,5.4vw,60px);line-height:1.02;font-weight:500;letter-spacing:-.055em;margin-top:15px}
     #sergey-portfolio-concept .sp-case-head p{font-size:16px;line-height:1.6;max-width:370px}
@@ -107,9 +109,9 @@
       #sergey-portfolio-concept .sp-intro{padding:34px 20px 28px;grid-template-columns:1fr;gap:24px}
       #sergey-portfolio-concept h1{font-size:clamp(38px,9vw,61px)}
       #sergey-portfolio-concept .sp-intro .sp-label{margin-bottom:18px}
-      #sergey-portfolio-concept .sp-intro-copy{max-width:100%;display:flex;align-items:start;justify-content:space-between;gap:20px}
-      #sergey-portfolio-concept .sp-intro-copy p{font-size:14px;max-width:260px}
-      #sergey-portfolio-concept .sp-text-link{font-size:12px;gap:12px;flex-shrink:0;padding-top:2px}
+      #sergey-portfolio-concept .sp-intro-copy{max-width:100%;display:block}
+      #sergey-portfolio-concept .sp-intro-copy p{font-size:14px}
+      #sergey-portfolio-concept .sp-text-link{font-size:12px;gap:12px;margin-top:14px}
       #sergey-portfolio-concept .sp-hero{margin:0 20px}
       #sergey-portfolio-concept .sp-hero-caption{font-size:11px;flex-wrap:wrap;gap:5px;padding-bottom:5px}
       #sergey-portfolio-concept .sp-section{padding:35px 20px 42px}
@@ -121,7 +123,7 @@
       #sergey-portfolio-concept .sp-about h2{font-size:36px}
       #sergey-portfolio-concept .sp-about-copy{font-size:17px}
       #sergey-portfolio-concept .sp-footer{padding:22px 20px;flex-wrap:wrap}
-      #sergey-portfolio-concept .sp-case{padding:28px 20px 38px}
+      #sergey-portfolio-concept .sp-case{padding:28px 20px 100px}
       #sergey-portfolio-concept .sp-case-head{grid-template-columns:1fr;gap:22px}
       #sergey-portfolio-concept .sp-case-gallery{gap:25px;grid-template-columns:1fr}
       #sergey-portfolio-concept .sp-media-art{padding:16px}

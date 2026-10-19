@@ -8,7 +8,7 @@
     const transition=root.querySelector('.sp-project-transition');
     const sectionNav=root.querySelector('.sp-case-nav'),viewer=root.querySelector('.sp-lightbox'),viewerImage=viewer.querySelector('img'),viewerStage=viewer.querySelector('.sp-lightbox-stage'),zoomButton=viewer.querySelector('[data-image-zoom]');
     let imageList=[],imageIndex=0,savedOverflow='';
-    function setZoom(zoomed){viewer.classList.toggle('sp-lightbox-zoomed',zoomed);if(zoomed)viewerImage.style.setProperty('--image-width',Math.max(viewerImage.naturalWidth,viewerStage.clientWidth*2)+'px');zoomButton.textContent=zoomed?'Вписать':'Увеличить';zoomButton.setAttribute('aria-pressed',String(zoomed));viewerStage.scrollTo(0,0)}
+    function setZoom(zoomed){viewer.classList.toggle('sp-lightbox-zoomed',zoomed);if(zoomed)viewerImage.style.setProperty('--image-width',Math.max(viewerImage.naturalWidth,viewerStage.clientWidth*2)+'px');zoomButton.textContent=zoomed?'Показать целиком':'Увеличить';zoomButton.setAttribute('aria-pressed',String(zoomed));viewerStage.scrollTo(0,0)}
     function displayImage(){
       const [asset,alt]=imageList[imageIndex];setZoom(false);viewerImage.src=assets[asset];viewerImage.alt=alt;
       viewerImage.style.setProperty('--image-width',dimensions[asset][0]+'px');
@@ -33,6 +33,18 @@
     function showHome(){closeImage();detail.hidden=true;home.hidden=false;document.title=homeTitle;announce('Главная страница портфолио')}
     function cancelPending(){clearTimeout(pending);pending=null;transition.hidden=true}
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
+    function navigateWithLogo(hash,label){
+      cancelPending();
+      function complete(){
+        pending=null;
+        if(location.hash!==hash)history.pushState(null,'',hash);
+        route();
+      }
+      if(reduceMotion.matches){complete();return}
+      transition.setAttribute('aria-label',label);
+      transition.hidden=false;
+      pending=setTimeout(complete,1000);
+    }
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — Сергей Белик'+(p.personal?'':' / J’PAN');
       ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
@@ -57,7 +69,7 @@
       });
       p.proof.links.forEach(([label,url])=>{if(!usedLinks.has(url)){const card=document.createElement('div'),context=document.createElement('span');card.className='sp-release-card';context.className='sp-release-context';context.textContent=label;card.append(context,publicationLink(label,url));publications.append(card);usedLinks.add(url)}});
       publications.hidden=!publications.childElementCount;
-      if(!publications.hidden){const heading=document.createElement('h3');heading.className='sp-release-heading';heading.textContent='Релизы проекта';publications.prepend(heading)}
+      if(!publications.hidden){const heading=document.createElement('h3');heading.className='sp-release-heading';heading.textContent='Публикации J’PAN';publications.prepend(heading)}
       let row=[];
       function centerRow(){if(row.length%2)row.at(-1).classList.add('sp-media-single');row=[]}
       for(const child of gallery.children){
@@ -77,23 +89,12 @@
       if(wasDetail&&previous){previous.focus({preventScroll:true});previous.scrollIntoView({block:'center',behavior:'auto'})}
     }
     root.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
-      cancelPending();previous=button;
-      const hash='#project-'+button.dataset.project;
-      if(reduceMotion.matches){
-        if(location.hash!==hash)history.pushState(null,'',hash);
-        route();
-        return;
-      }
-      transition.hidden=false;
-      pending=setTimeout(()=>{
-        pending=null;
-        if(location.hash!==hash)history.pushState(null,'',hash);
-        route();
-      },1000);
+      previous=button;
+      navigateWithLogo('#project-'+button.dataset.project,'Открываем проект');
     }));
     root.querySelectorAll('[data-jump]').forEach(button=>button.addEventListener('click',()=>jump(button.dataset.jump)));
     root.querySelector('[data-home]').addEventListener('click',()=>{cancelPending();history.pushState(null,'',location.pathname+location.search);route();root.scrollIntoView({block:'start',behavior:'auto'})});
-    root.querySelector('[data-return]').addEventListener('click',()=>jump('sp-work'));
+    root.querySelector('[data-return]').addEventListener('click',()=>navigateWithLogo('#sp-work','Возвращаемся к работам'));
     root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click()});
     window.addEventListener('hashchange',route);
     window.addEventListener('popstate',route);
