@@ -67,64 +67,71 @@
       if(!corner||!source.width||source.bottom<=0||source.top>=window.innerHeight){startOrbit();return}
       openingCard=trigger;openingCard.classList.add('sp-project-is-opening');
       const logo=transition.querySelector('.sp-transition-logo').getBoundingClientRect(),scale=logo.width/480;
-      const sourceScale=source.width/108,sourceCenter={x:source.left+source.width/2,y:source.top+source.height/2};
-      const targetCenter={x:logo.left+74*scale,y:logo.top+629.5*scale};
-      const dx=targetCenter.x-sourceCenter.x,dy=targetCenter.y-sourceCenter.y,distance=Math.hypot(dx,dy);
-      const sourcePath=corner.querySelector('path'),pathLength=sourcePath.getTotalLength();
-      const rest=pathLength/transition.querySelector('.sp-transition-orbit').getTotalLength()*100;
+      const sourceScale=source.width/108,sourcePath=corner.querySelector('path');
+      const orbit=transition.querySelector('.sp-transition-orbit');
+      const rest=sourcePath.getTotalLength()/orbit.getTotalLength()*100;
       transition.style.setProperty('--sp-orbit-rest',rest+' '+(100-rest));
       const shape=[[443,838],[443,874],[443,895],[457,909],[479,909],[511,909]];
       const start=shape.map(([x,y])=>({x:source.left+(x-423)*sourceScale,y:source.top+(y-818)*source.height/111}));
       const end=shape.map(([x,y])=>({x:logo.left+(x-403)*scale,y:logo.top+(y-244)*scale}));
-      let nx=distance?-dy/distance:0,ny=distance?dx/distance:1;
-      if(nx*(start[5].x-start[0].x)+ny*(start[5].y-start[0].y)<0){nx=-nx;ny=-ny}
-      // Express the original rounded corner in its endpoint frame. A shared
-      // transform preserves both tangent joins and scales the bend radius.
-      function cornerProfile(points){
-        const origin=points[0],vx=points[5].x-origin.x,vy=points[5].y-origin.y,length2=vx*vx+vy*vy;
-        return points.map(p=>({u:((p.x-origin.x)*vx+(p.y-origin.y)*vy)/length2,v:((p.y-origin.y)*vx-(p.x-origin.x)*vy)/length2}));
-      }
-      const startProfile=cornerProfile(start),endProfile=cornerProfile(end);
+      const xy=p=>p.x.toFixed(4)+','+p.y.toFixed(4);
+      const cornerCommands=points=>' L'+xy(points[1])+' C'+xy(points[2])+' '+xy(points[3])+' '+xy(points[4])+' L'+xy(points[5]);
+      const sourceD='M'+xy(start[0])+cornerCommands(start);
+      const distance=Math.hypot(end[0].x-start[5].x,end[0].y-start[5].y);
+      const handle=Math.max(28,Math.min(180,distance*.38));
+      // Continue the source's rightward tangent, then enter the orbit downward.
+      // Both tips follow this one continuous route, including the orbit itself.
+      const connector=' C'+xy({x:start[5].x+handle,y:start[5].y})+' '+xy({x:end[0].x,y:end[0].y-handle})+' '+xy(end[0]);
+      let axis=0;
+      const orbitCommands=orbit.getAttribute('d').replace(/Z\s*$/i,'').replace(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi,value=>{
+        const coordinate=axis++%2===0?logo.left+(Number(value)-403)*scale:logo.top+(Number(value)-244)*scale;
+        return coordinate.toFixed(4);
+      }).replace(/^\s*M[^a-z]+/i,'');
       const svgNS='http://www.w3.org/2000/svg';
       flyingCorner=document.createElementNS(svgNS,'svg');flyingCorner.setAttribute('class','sp-transition-flyer');
       flyingCorner.setAttribute('viewBox','0 0 '+window.innerWidth+' '+window.innerHeight);
       flyingCorner.setAttribute('preserveAspectRatio','none');flyingCorner.setAttribute('aria-hidden','true');
       const ribbon=document.createElementNS(svgNS,'path');flyingCorner.append(ribbon);transition.append(flyingCorner);
+      ribbon.setAttribute('d',sourceD);
+      const sourceLength=ribbon.getTotalLength();
+      const approachD=sourceD+connector;
+      ribbon.setAttribute('d',approachD);
+      const arrival=ribbon.getTotalLength();
+      const lapD=approachD+orbitCommands;
+      ribbon.setAttribute('d',lapD);
+      const orbitLength=ribbon.getTotalLength()-arrival;
+      // Include the first corner of the next lap so a dash never wraps to the card.
+      ribbon.setAttribute('d',lapD+cornerCommands(end));
+      const totalLength=ribbon.getTotalLength(),cornerLength=totalLength-arrival-orbitLength;
       const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>x*x*x*(x*(x*6-15)+10);
-      const duration=720;
-      let arc=Math.min(120,Math.max(source.width*1.15,distance*.18));
-      const baseX=start[5].x-start[0].x,baseY=start[5].y-start[0].y;
-      const minSpan=.96*Math.min(Math.hypot(baseX,baseY),Math.hypot(end[5].x-end[0].x,end[5].y-end[0].y));
-      const travelX=end[0].x-start[0].x,travelY=end[0].y-start[0].y;
-      // Keep the two tips apart during a reversal so the rounded bend cannot pinch.
-      for(let i=1;i<128;i++){
-        const q=i/128,x=baseX+travelX*q,y=baseY+travelY*q;
-        const along=x*ny-y*nx,across=x*nx+y*ny;
-        const needed=Math.sqrt(Math.max(0,minSpan*minSpan-along*along));
-        arc=Math.max(arc,(needed-across+.15)/Math.sin(Math.PI*q));
+      const flightDuration=Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=1000;
+      function drawLine(tail,head,width){
+        ribbon.style.strokeDasharray=Math.max(.001,head-tail).toFixed(4)+' '+(totalLength+1).toFixed(4);
+        ribbon.style.strokeDashoffset=(-tail).toFixed(4);
+        ribbon.style.strokeWidth=width.toFixed(4)+'px';
       }
       function renderFlight(t){
-        const head=ease(clamp((t-.02)/.63)),tail=ease(clamp((t-.19)/.81)),stretch=head-tail,blend=(head+tail)/2;
-        const lift=Math.sin(Math.PI*tail)*arc*.35,bow=Math.sin(Math.PI*stretch)*arc;
-        // The upper-left endpoint stays pinned until the tail starts moving.
-        const back={x:start[0].x+(end[0].x-start[0].x)*tail+nx*lift,y:start[0].y+(end[0].y-start[0].y)*tail+ny*lift};
-        const tip={x:start[5].x+(end[5].x-start[5].x)*head+nx*(lift+bow),y:start[5].y+(end[5].y-start[5].y)*head+ny*(lift+bow)};
-        const vx=tip.x-back.x,vy=tip.y-back.y;
-        const points=startProfile.map((p,i)=>{
-          const u=p.u*(1-blend)+endProfile[i].u*blend,v=p.v*(1-blend)+endProfile[i].v*blend;
-          return {x:back.x+vx*u-vy*v,y:back.y+vy*u+vx*v};
-        });
-        const xy=p=>p.x.toFixed(3)+','+p.y.toFixed(3);
-        ribbon.setAttribute('d','M'+xy(points[0])+' L'+xy(points[1])+' C'+xy(points[2])+' '+xy(points[3])+' '+xy(points[4])+' L'+xy(points[5]));
-        ribbon.style.strokeWidth=(34*(sourceScale*(1-blend)+scale*blend)*(1-.15*stretch)).toFixed(3)+'px';
+        const head=ease(t),tail=ease(clamp((t-.17)/.83));
+        drawLine(arrival*tail,sourceLength+(arrival+cornerLength-sourceLength)*head,34*(sourceScale*(1-head)+scale*head));
+      }
+      // Keep the established orbit's timing and changing dash length on this path.
+      const orbitFrames=[[0,0,rest],[.14,9,14],[.26,24,19],[.75,77,19],[.89,91,12],[1,100,rest]];
+      function renderOrbit(t){
+        let i=1;while(i<orbitFrames.length-1&&t>orbitFrames[i][0])i++;
+        const a=orbitFrames[i-1],b=orbitFrames[i],p=(t-a[0])/(b[0]-a[0]);
+        const offset=a[1]+(b[1]-a[1])*p,length=a[2]+(b[2]-a[2])*p;
+        const tail=arrival+orbitLength*offset/100;
+        drawLine(tail,tail+orbitLength*length/100,34*scale);
       }
       let frame=0;const started=performance.now();
       flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
       function step(now){
         if(run!==transitionRun)return;
-        const t=clamp((now-started)/duration);renderFlight(t);
-        if(t<1)frame=requestAnimationFrame(step);
-        else{flyerAnimation=null;startOrbit()}
+        const elapsed=Math.max(0,now-started);
+        if(elapsed<flightDuration)renderFlight(elapsed/flightDuration);
+        else renderOrbit(clamp((elapsed-flightDuration)/orbitDuration));
+        if(elapsed<flightDuration+orbitDuration)frame=requestAnimationFrame(step);
+        else{flyerAnimation=null;complete()}
       }
       renderFlight(0);frame=requestAnimationFrame(step);
     }
