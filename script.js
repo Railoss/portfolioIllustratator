@@ -5,7 +5,6 @@
     const home=root.querySelector('.sp-home'),detail=root.querySelector('.sp-case'),gallery=root.querySelector('.sp-case-gallery'),publications=root.querySelector('.sp-case-publications');
     let previous=null,pending=null;
     let homeTitle=document.title;
-    const previewMode=new URLSearchParams(location.search).get('text-preview')==='1';
     const text=()=>window.PORTFOLIO_TEXT.current;
     const ui=key=>text()?.ui[key]||({zoom:'Увеличить',fit:'Показать целиком',release:'Ссылка на релиз',publications:'Публикации J’PAN',personal:'Проект',client:'Клиент'})[key];
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -49,7 +48,7 @@
       transition.hidden=false;
       pending=setTimeout(complete,1000);
     }
-    function openProject(key,trigger,quiet=false){
+    function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal?'':' / J’PAN');
       ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
       root.querySelector('[data-case-client]').previousElementSibling.textContent=ui(p.personal?'personal':'client');
@@ -82,7 +81,7 @@
       }
       centerRow();
       home.hidden=true;detail.hidden=false;
-      if(!quiet){root.scrollIntoView({block:'start',behavior:'auto'});if(!previewMode)root.querySelector('[data-return]').focus({preventScroll:true})}
+      root.scrollIntoView({block:'start',behavior:'auto'});root.querySelector('[data-return]').focus({preventScroll:true});
       announce('Проект: '+p.title);
     }
     function route(){
@@ -92,7 +91,7 @@
       const wasDetail=!detail.hidden;showHome();
       const target=location.hash==='#sp-work'?root.querySelector('#sp-work'):location.hash==='#sp-about'?root.querySelector('#sp-about'):root;
       target.scrollIntoView({block:'start',behavior:'auto'});
-      if(wasDetail&&previous){if(!previewMode)previous.focus({preventScroll:true});previous.scrollIntoView({block:'center',behavior:'auto'})}
+      if(wasDetail&&previous){previous.focus({preventScroll:true});previous.scrollIntoView({block:'center',behavior:'auto'})}
     }
     root.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
       previous=button;
@@ -104,12 +103,6 @@
     root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click()});
     window.addEventListener('hashchange',route);
     window.addEventListener('popstate',route);
-    window.addEventListener('portfolio-text-updated',()=>{
-      homeTitle=text().home.siteTitle;
-      const key=location.hash.startsWith('#project-')?location.hash.slice(9).split('/')[0]:null;
-      if(key&&Object.hasOwn(projects,key))openProject(key,null,true);else showHome();
-      setZoom(false);
-    });
     setZoom(false);
     route();
   })();

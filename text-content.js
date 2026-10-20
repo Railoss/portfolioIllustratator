@@ -1,7 +1,6 @@
-/* Shared by the public portfolio and its text editor. Text never becomes HTML. */
+/* Published portfolio copy. Text never becomes HTML. */
 (()=>{
   'use strict';
-  const DRAFT_KEY='sergey-portfolio-text-draft-v1';
   const data=window.PORTFOLIO_DATA;
   let published=null,current=null;
   const clone=value=>JSON.parse(JSON.stringify(value));
@@ -12,9 +11,6 @@
     const result={};
     for(const key of Object.keys(template))result[key]=normalize(value&&Object.hasOwn(value,key)?value[key]:undefined,template[key]);
     return result;
-  }
-  function draft(){
-    try{const saved=JSON.parse(localStorage.getItem(DRAFT_KEY));return saved?.copy?.version===1?saved:null}catch{return null}
   }
   async function fetchPublished(){
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
@@ -56,19 +52,8 @@
     root.querySelector('[data-image-close]').textContent=current.ui.close+' ×';
   }
   async function load(){
-    try{
-      await fetchPublished();
-      const preview=new URLSearchParams(location.search).get('text-preview')==='1';
-      apply(preview?(draft()?.copy||published):published);
-      if(preview){
-        document.documentElement.dataset.textPreview='true';
-        addEventListener('message',event=>{
-          if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='portfolio-text-preview')return;
-          apply(event.data.copy);dispatchEvent(new Event('portfolio-text-updated'));
-        });
-        parent.postMessage({type:'portfolio-text-ready'},location.origin);
-      }
-    }catch(error){console.warn('Portfolio text:',error.message)}
+    try{await fetchPublished();apply(published)}
+    catch(error){console.warn('Portfolio text:',error.message)}
   }
-  window.PORTFOLIO_TEXT={DRAFT_KEY,clone,normalize,draft,fetchPublished,apply,load,get current(){return current},get published(){return published}};
+  window.PORTFOLIO_TEXT={load,get current(){return current}};
 })();
