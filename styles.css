@@ -195,11 +195,11 @@ body { margin: 0; background: #eaf2fb; }
 
 /* The clicked card's corner lands on the logo, then completes its orbit. */
 #sergey-portfolio-concept .sp-project-transition{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;pointer-events:all}
-#sergey-portfolio-concept .sp-project-transition::before{content:'';position:absolute;inset:0;background:var(--paper);animation:sp-transition-wash .192s ease-out both}
-#sergey-portfolio-concept .sp-transition-logo{position:relative;display:block;width:clamp(112px,24vw,152px);height:auto;overflow:visible;animation:sp-transition-wash .192s ease-out both}
+#sergey-portfolio-concept .sp-project-transition::before{content:'';position:absolute;inset:0;background:var(--paper);animation:sp-transition-wash var(--sp-fade-duration,160ms) ease-out both}
+#sergey-portfolio-concept .sp-transition-logo{position:relative;display:block;width:clamp(112px,24vw,152px);height:auto;overflow:visible;animation:sp-transition-wash var(--sp-fade-duration,160ms) ease-out both}
 #sergey-portfolio-concept .sp-transition-blue{fill:none;stroke:#6082A8;stroke-width:41;stroke-linecap:round;stroke-linejoin:round}
 #sergey-portfolio-concept .sp-transition-orbit{fill:none;stroke:var(--corner);stroke-width:34;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--sp-orbit-rest,5.7 94.3);stroke-dashoffset:0;visibility:hidden}
-#sergey-portfolio-concept .sp-transition-arrived .sp-transition-orbit{visibility:visible;animation:sp-corner-orbit .8s linear both}
+#sergey-portfolio-concept .sp-transition-arrived .sp-transition-orbit{visibility:visible;animation:sp-corner-orbit var(--sp-orbit-duration,600ms) linear both}
 #sergey-portfolio-concept .sp-project-corner{position:absolute;left:14px;bottom:14px;z-index:3;width:34px;height:35px;pointer-events:none}
 #sergey-portfolio-concept .sp-project-corner path,#sergey-portfolio-concept .sp-transition-flyer path{fill:none;stroke:var(--corner);stroke-linecap:round;stroke-linejoin:round}
 #sergey-portfolio-concept .sp-project-corner path{stroke-width:34}
@@ -207,7 +207,7 @@ body { margin: 0; background: #eaf2fb; }
 #sergey-portfolio-concept .sp-project-is-opening .sp-project-art{animation:none}
 #sergey-portfolio-concept .sp-transition-flyer{position:fixed;left:0;top:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
 #sergey-portfolio-concept .sp-transition-reverse::before,#sergey-portfolio-concept .sp-transition-reverse .sp-transition-logo{animation:none;opacity:1}
-#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning::before,#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning .sp-transition-logo{animation:sp-transition-wash .192s ease-in reverse both}
+#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning::before,#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning .sp-transition-logo{animation:sp-transition-wash var(--sp-fade-duration,160ms) ease-in reverse both}
 #sergey-portfolio-concept .sp-transition-reverse.sp-transition-arrived .sp-transition-orbit{animation-direction:reverse}
 @keyframes sp-transition-wash{from{opacity:0}to{opacity:1}}
 @keyframes sp-corner-orbit{

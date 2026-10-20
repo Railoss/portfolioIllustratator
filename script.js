@@ -9,6 +9,8 @@
     const ui=key=>text()?.ui[key]||({zoom:'Увеличить',fit:'Показать целиком',release:'Ссылка на релиз',publications:'Публикации J’PAN',personal:'Проект',client:'Клиент'})[key];
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
     const transition=root.querySelector('.sp-project-transition');
+    const transitionTiming=Object.freeze({flight:400,orbit:600,fade:160});
+    transition.style.setProperty('--sp-fade-duration',transitionTiming.fade+'ms');
     const sectionNav=root.querySelector('.sp-case-nav'),viewer=root.querySelector('.sp-lightbox'),viewerImage=viewer.querySelector('img'),viewerStage=viewer.querySelector('.sp-lightbox-stage'),zoomButton=viewer.querySelector('[data-image-zoom]');
     let imageList=[],imageIndex=0,savedOverflow='';
     function setZoom(zoomed){viewer.classList.toggle('sp-lightbox-zoomed',zoomed);if(zoomed)viewerImage.style.setProperty('--image-width',Math.max(viewerImage.naturalWidth,viewerStage.clientWidth*2)+'px');zoomButton.textContent=zoomed?ui('fit'):ui('zoom');zoomButton.setAttribute('aria-pressed',String(zoomed));viewerStage.scrollTo(0,0)}
@@ -70,6 +72,7 @@
       }
       if(reduceMotion.matches){complete();return}
       transition.setAttribute('aria-label',label);
+      transition.style.setProperty('--sp-orbit-duration',transitionTiming.orbit+'ms');
       transition.classList.toggle('sp-transition-reverse',reverse);
       transition.hidden=false;
       transition.focus({preventScroll:true});
@@ -84,13 +87,26 @@
       document.documentElement.style.scrollbarGutter='stable';
       transitionOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
       const corner=trigger?.querySelector('.sp-project-corner'),source=corner?.getBoundingClientRect();
-      function startOrbit(){
-        if(run!==transitionRun)return;
-        transition.classList.add('sp-transition-arrived');
-        if(flyingCorner){flyingCorner.remove();flyingCorner=null}
-        pending=setTimeout(complete,800);
+      // Every project and both directions use the same wall-clock timeline.
+      const duration=transitionTiming.flight+transitionTiming.orbit;
+      function playTimeline(render){
+        let frame=0;const started=performance.now();
+        flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
+        function step(now){
+          if(run!==transitionRun)return;
+          const elapsed=Math.min(duration,Math.max(0,now-started));
+          render(elapsed);
+          if(reverse&&elapsed>=duration-transitionTiming.fade)transition.classList.add('sp-transition-returning');
+          if(elapsed<duration)frame=requestAnimationFrame(step);
+          else{flyerAnimation=null;complete()}
+        }
+        render(0);frame=requestAnimationFrame(step);
       }
-      if(!corner||!source.width||source.bottom<=0||source.top>=window.innerHeight){startOrbit();return}
+      if(!corner||!source.width){
+        transition.style.setProperty('--sp-orbit-duration',duration+'ms');
+        transition.classList.add('sp-transition-arrived');
+        playTimeline(()=>{});return;
+      }
       openingCard=trigger;openingCard.classList.add('sp-project-is-opening');
       const logo=transition.querySelector('.sp-transition-logo').getBoundingClientRect(),scale=logo.width/480;
       const sourceScale=source.width/108,sourcePath=corner.querySelector('path');
@@ -131,8 +147,7 @@
       ribbon.setAttribute('d',lapD+cornerCommands(end));
       const totalLength=ribbon.getTotalLength(),cornerLength=totalLength-arrival-orbitLength;
       const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>x*x*x*(x*(x*6-15)+10);
-      const flightDuration=returnOrigin?.flightDuration??.8*Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=800;
-      if(!reverse&&openingOrigin)openingOrigin.flightDuration=flightDuration;
+      const {flight:flightDuration,orbit:orbitDuration}=transitionTiming;
       function drawLine(tail,head,width){
         ribbon.style.strokeDasharray=Math.max(.001,head-tail).toFixed(4)+' '+(totalLength+1).toFixed(4);
         ribbon.style.strokeDashoffset=(-tail).toFixed(4);
@@ -151,24 +166,13 @@
         const tail=arrival+orbitLength*offset/100;
         drawLine(tail,tail+orbitLength*length/100,34*scale);
       }
-      const duration=flightDuration+orbitDuration;
       function renderElapsed(elapsed){
         // Reuse the complete opening timeline backwards, including its orbit.
         const position=reverse?duration-elapsed:elapsed;
         if(position<flightDuration)renderFlight(clamp(position/flightDuration));
         else renderOrbit(clamp((position-flightDuration)/orbitDuration));
-        if(reverse&&elapsed>=duration-192)transition.classList.add('sp-transition-returning');
       }
-      let frame=0;const started=performance.now();
-      flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
-      function step(now){
-        if(run!==transitionRun)return;
-        const elapsed=Math.min(duration,Math.max(0,now-started));
-        renderElapsed(elapsed);
-        if(elapsed<duration)frame=requestAnimationFrame(step);
-        else{flyerAnimation=null;complete()}
-      }
-      renderElapsed(0);frame=requestAnimationFrame(step);
+      playTimeline(renderElapsed);
     }
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal||p.mixed?'':' / J’PAN');
