@@ -3,7 +3,7 @@
     const root=document.getElementById('sergey-portfolio-concept');
     const {assets,projects,previews,dimensions}=window.PORTFOLIO_DATA;
     const home=root.querySelector('.sp-home'),detail=root.querySelector('.sp-case'),gallery=root.querySelector('.sp-case-gallery'),publications=root.querySelector('.sp-case-publications');
-    let previous=null,pending=null;
+    let previous=null,pending=null,transitionRun=0,flyerAnimation=null,flyingCorner=null,openingCard=null,transitionOverflow=null;
     let homeTitle=document.title;
     const text=()=>window.PORTFOLIO_TEXT.current;
     const ui=key=>text()?.ui[key]||({zoom:'Увеличить',fit:'Показать целиком',release:'Ссылка на релиз',publications:'Публикации J’PAN',personal:'Проект',client:'Клиент'})[key];
@@ -34,19 +34,49 @@
     function announce(text){root.querySelector('[data-announcement]').textContent=text}
     function scrollToGroup(heading,behavior){heading.style.scrollMarginTop=(sectionNav.hidden?12:sectionNav.getBoundingClientRect().height+12)+'px';heading.scrollIntoView({block:'start',behavior})}
     function showHome(){closeImage();detail.hidden=true;home.hidden=false;document.title=homeTitle;announce('Главная страница портфолио')}
-    function cancelPending(){clearTimeout(pending);pending=null;transition.hidden=true}
+    function cancelPending(){
+      transitionRun++;
+      clearTimeout(pending);pending=null;
+      if(flyerAnimation){flyerAnimation.cancel();flyerAnimation=null}
+      if(flyingCorner){flyingCorner.remove();flyingCorner=null}
+      if(openingCard){openingCard.classList.remove('sp-project-is-opening');openingCard=null}
+      if(transitionOverflow!==null){document.body.style.overflow=transitionOverflow;transitionOverflow=null}
+      transition.classList.remove('sp-transition-arrived');transition.hidden=true;
+    }
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
-    function navigateWithLogo(hash,label){
+    function navigateWithLogo(hash,label,trigger){
       cancelPending();
+      const run=transitionRun;
       function complete(){
+        if(run!==transitionRun)return;
         pending=null;
         if(location.hash!==hash)history.pushState(null,'',hash);
         route();
       }
       if(reduceMotion.matches){complete();return}
+      const corner=trigger?.querySelector('.sp-project-corner'),source=corner?.getBoundingClientRect();
       transition.setAttribute('aria-label',label);
       transition.hidden=false;
-      pending=setTimeout(complete,1000);
+      transitionOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+      function startOrbit(){
+        if(run!==transitionRun)return;
+        transition.classList.add('sp-transition-arrived');
+        if(flyingCorner){flyingCorner.remove();flyingCorner=null}
+        pending=setTimeout(complete,1000);
+      }
+      if(!corner||!source.width||source.bottom<=0||source.top>=window.innerHeight){startOrbit();return}
+      openingCard=trigger;openingCard.classList.add('sp-project-is-opening');
+      flyingCorner=corner.cloneNode(true);flyingCorner.setAttribute('class','sp-transition-flyer');
+      Object.assign(flyingCorner.style,{left:source.left+'px',top:source.top+'px',width:source.width+'px',height:source.height+'px'});
+      transition.append(flyingCorner);
+      const logo=transition.querySelector('.sp-transition-logo').getBoundingClientRect(),scale=logo.width/480;
+      const dx=logo.left+20*scale-source.left,dy=logo.top+574*scale-source.top,targetScale=108*scale/source.width;
+      flyerAnimation=flyingCorner.animate([
+        {transform:'translate(0,0) rotate(0deg) scale(1)'},
+        {transform:'translate('+dx*.55+'px,'+(dy*.55-48)+'px) rotate(-18deg) scale('+((1+targetScale)/2)+')',offset:.55},
+        {transform:'translate('+dx+'px,'+dy+'px) rotate(0deg) scale('+targetScale+')'}
+      ],{duration:420,easing:'cubic-bezier(.22,.8,.25,1)',fill:'forwards'});
+      flyerAnimation.finished.then(startOrbit).catch(()=>{});
     }
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal?'':' / J’PAN');
@@ -96,12 +126,16 @@
     }
     root.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
       previous=button;
-      navigateWithLogo('#project-'+button.dataset.project,'Открываем проект');
+      navigateWithLogo('#project-'+button.dataset.project,'Открываем проект',button);
     }));
     root.querySelectorAll('[data-jump]').forEach(button=>button.addEventListener('click',()=>jump(button.dataset.jump)));
     root.querySelector('[data-home]').addEventListener('click',()=>{cancelPending();history.pushState(null,'',location.pathname+location.search);route();root.scrollIntoView({block:'start',behavior:'auto'})});
     root.querySelector('[data-return]').addEventListener('click',()=>navigateWithLogo('#sp-work','Возвращаемся к работам'));
-    root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click()});
+    root.addEventListener('keydown',event=>{
+      if(event.key!=='Escape')return;
+      if(!transition.hidden){event.preventDefault();cancelPending();previous?.focus({preventScroll:true});return}
+      if(!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click();
+    });
     window.addEventListener('hashchange',route);
     window.addEventListener('popstate',route);
     setZoom(false);

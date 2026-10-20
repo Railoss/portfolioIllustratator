@@ -116,7 +116,7 @@ window.PORTFOLIO_DATA = {
             "https://t.me/jpan_bistro/5231"
           ],
           [
-            "Hanami",
+            "Ханами",
             "https://t.me/jpan_bistro/1567"
           ],
           [
@@ -174,19 +174,19 @@ window.PORTFOLIO_DATA = {
         ],
         [
           "springFront",
-          "Hanami · лицевая сторона",
+          "Ханами · лицевая сторона",
           null,
           false
         ],
         [
           "springBack",
-          "Hanami · оборот",
+          "Ханами · оборот",
           null,
           false
         ],
         [
           "springProof",
-          "Hanami · Весна · публикация J’PAN",
+          "Ханами · Весна · публикация J’PAN",
           2,
           true
         ],
@@ -277,7 +277,7 @@ window.PORTFOLIO_DATA = {
       ],
       "groups": {
         "0": "Зима 2025",
-        "5": "Hanami · Весна",
+        "5": "Ханами · Весна",
         "8": "Лето",
         "10": "Хэллоуин",
         "12": "Спешл зима 2024",
@@ -395,16 +395,16 @@ window.PORTFOLIO_DATA = {
       "subheadings": {}
     },
     "merch": {
-      "title": "Hanami",
+      "title": "Ханами",
       "label": "J’PAN / Фестивальный мерч",
-      "description": "Два принта для футболок J’PAN, выпущенных к фестивалю Hanami.",
+      "description": "Два принта для футболок J’PAN, выпущенных к фестивалю Ханами.",
       "client": "J’PAN",
       "role": "Иллюстрация принтов",
       "format": "Футболки",
       "proof": {
         "links": [
           [
-            "Мерч Hanami · Instagram",
+            "Мерч Ханами · Instagram",
             "https://www.instagram.com/reel/Cqm26mFvVLe/?igshid=YmMyMTA2M2Y%3D"
           ]
         ]
@@ -412,15 +412,15 @@ window.PORTFOLIO_DATA = {
       "media": [
         [
           "merchOne",
-          "Hanami — принт 1"
+          "Ханами — принт 1"
         ],
         [
           "merchTwo",
-          "Hanami — принт 2"
+          "Ханами — принт 2"
         ],
         [
           "merchProof",
-          "Мерч Hanami с готовыми принтами",
+          "Мерч Ханами с готовыми принтами",
           0,
           true,
           true
@@ -665,7 +665,7 @@ window.PORTFOLIO_DATA = {
       "subheadings": {}
     },
     "series": {
-      "title": "World Cuisines",
+      "title": "Кухни Мира",
       "label": "J’PAN / Серийная иллюстрация",
       "description": "Серия иллюстраций в формате почтовых марок для ивента J’PAN, посвящённого кухням разных стран. Марки дарили гостям.",
       "client": "J’PAN",
@@ -674,7 +674,7 @@ window.PORTFOLIO_DATA = {
       "proof": {
         "links": [
           [
-            "World Cuisines · Telegram",
+            "Кухни Мира · Telegram",
             "https://t.me/jpan_bistro/2047"
           ]
         ]
@@ -682,29 +682,29 @@ window.PORTFOLIO_DATA = {
       "media": [
         [
           "worldOne",
-          "World Cuisines — 1"
+          "Кухни Мира — 1"
         ],
         [
           "worldTwo",
-          "World Cuisines — 2"
+          "Кухни Мира — 2"
         ],
         [
           "worldThree",
-          "World Cuisines — 3"
+          "Кухни Мира — 3"
         ],
         [
           "worldFour",
-          "World Cuisines — 4"
+          "Кухни Мира — 4"
         ],
         [
           "worldProofOne",
-          "World Cuisines — публикация J’PAN",
+          "Кухни Мира — публикация J’PAN",
           0,
           true
         ],
         [
           "worldProofTwo",
-          "World Cuisines — публикация J’PAN",
+          "Кухни Мира — публикация J’PAN",
           0,
           true
         ]
