@@ -16,6 +16,7 @@
     #sergey-portfolio-concept .sp-intro{padding:49px 36px 38px;display:grid;grid-template-columns:1.65fr 1fr;gap:28px;align-items:end}
     #sergey-portfolio-concept .sp-intro .sp-label{color:var(--accent);margin-bottom:22px}
     #sergey-portfolio-concept h1{font-weight:500;font-size:clamp(40px,6.9vw,78px);line-height:1.12;letter-spacing:-.045em}
+    #sergey-portfolio-concept [data-text="home.heading"],#sergey-portfolio-concept [data-case-description],#sergey-portfolio-concept .sp-intro-copy p,#sergey-portfolio-concept .sp-about-copy p{white-space:pre-line}
     #sergey-portfolio-concept .sp-intro-copy{max-width:360px;padding-bottom:5px}
     #sergey-portfolio-concept .sp-intro-copy p{font-size:17px;line-height:1.5}
     #sergey-portfolio-concept .sp-intro-copy p+p{margin-top:16px}
