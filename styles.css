@@ -40,8 +40,8 @@
     #sergey-portfolio-concept .sp-menus img:last-child{transform:rotate(5deg)}
     #sergey-portfolio-concept .sp-bank{background:light-dark(#e9dfec,#3b2c42)}
     #sergey-portfolio-concept .sp-bank img{position:absolute;width:64%;border-radius:12px;box-shadow:0 12px 24px #21112525}
-    #sergey-portfolio-concept .sp-bank img:first-child{top:31px;left:30px;transform:rotate(-7deg)}
-    #sergey-portfolio-concept .sp-bank img:last-child{bottom:29px;right:26px;transform:rotate(7deg)}
+    #sergey-portfolio-concept .sp-bank img:first-of-type{top:30px;left:28px;transform:rotate(-7deg)}
+    #sergey-portfolio-concept .sp-bank img:last-of-type{bottom:30px;right:28px;transform:rotate(7deg)}
     #sergey-portfolio-concept .sp-panel{background:light-dark(#dfe9e6,#2f413b);padding:25px}
     #sergey-portfolio-concept .sp-panel img{width:100%;max-height:235px;object-fit:contain}
     #sergey-portfolio-concept .sp-merch{background:light-dark(#eaded8,#44352d)}
