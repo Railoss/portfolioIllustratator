@@ -512,7 +512,7 @@ window.PORTFOLIO_DATA = {
       "media": [
         [
           "imaginationFlood",
-          "Imagination Flood · Полная иллюстрация",
+          "Imagination Flood — личная иллюстрация о книжном магазине, где книги оживают, а из раскрытых страниц выплёскивается море.",
           null,
           false,
           true
@@ -568,64 +568,62 @@ window.PORTFOLIO_DATA = {
         "6": "Вилли Вонка"
       },
       "subheadings": {},
-      "groupDescriptions": {
-        "0": "Личная иллюстрация о книжном магазине, где книги оживают, а из раскрытых страниц выплёскивается море."
-      },
+      "groupDescriptions": {},
       "mixed": true
     },
     "sailor": {
-      "title": "Sailor Moon",
+      "title": "Сэйлор Мун",
       "label": "J’PAN / Серия иллюстраций",
-      "description": "Четыре иллюстрации по мотивам Sailor Moon для J’PAN к 14 февраля. Серию использовали в промоматериалах, на стикерах и флажках для блюд.",
+      "description": "Четыре иллюстрации по мотивам Сэйлор Мун для J’PAN к 14 февраля. Серию использовали в промоматериалах, на стикерах и флажках для блюд.",
       "client": "J’PAN",
       "role": "Серия иллюстраций",
       "format": "Промоматериалы, стикеры, флажки для блюд",
       "media": [
         [
           "restored63",
-          "Sailor Moon 1",
+          "Сэйлор Мун 1",
           null,
           false
         ],
         [
           "restored64",
-          "Sailor Moon 2",
+          "Сэйлор Мун 2",
           null,
           false
         ],
         [
           "restored65",
-          "Sailor Moon 3",
+          "Сэйлор Мун 3",
           null,
           false
         ],
         [
           "restored66",
-          "Sailor Moon 4",
+          "Сэйлор Мун 4",
           null,
           false
         ],
         [
           "restored67",
-          "Sailor Moon · публикация J’PAN",
+          "Сэйлор Мун · публикация J’PAN",
           null,
           true
         ],
         [
           "restored68",
-          "Sailor Moon · публикация J’PAN",
+          "Сэйлор Мун · публикация J’PAN",
           null,
           true
         ],
         [
           "restored69",
-          "Sailor Moon · публикация J’PAN",
+          "Сэйлор Мун · публикация J’PAN",
           null,
           true
         ],
         [
           "restored70",
-          "Sailor Moon · публикация J’PAN",
+          "Сэйлор Мун · публикация J’PAN",
           null,
           true
         ]
@@ -637,15 +635,15 @@ window.PORTFOLIO_DATA = {
       "proof": {
         "links": [
           [
-            "Sailor Moon - 1",
+            "Сэйлор Мун - 1",
             "https://t.me/jpan_bistro/1172"
           ],
           [
-            "Sailor Moon - 2",
+            "Сэйлор Мун - 2",
             "https://t.me/jpan_bistro/1182"
           ],
           [
-            "Sailor Moon - 3",
+            "Сэйлор Мун - 3",
             "https://t.me/jpan_bistro/1190"
           ]
         ]

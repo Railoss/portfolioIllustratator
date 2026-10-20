@@ -81,7 +81,7 @@
         if(run!==transitionRun)return;
         transition.classList.add('sp-transition-arrived');
         if(flyingCorner){flyingCorner.remove();flyingCorner=null}
-        pending=setTimeout(complete,1000);
+        pending=setTimeout(complete,800);
       }
       if(!corner||!source.width||source.bottom<=0||source.top>=window.innerHeight){startOrbit();return}
       openingCard=trigger;openingCard.classList.add('sp-project-is-opening');
@@ -124,7 +124,7 @@
       ribbon.setAttribute('d',lapD+cornerCommands(end));
       const totalLength=ribbon.getTotalLength(),cornerLength=totalLength-arrival-orbitLength;
       const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>x*x*x*(x*(x*6-15)+10);
-      const flightDuration=Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=1000;
+      const flightDuration=.8*Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=800;
       function drawLine(tail,head,width){
         ribbon.style.strokeDasharray=Math.max(.001,head-tail).toFixed(4)+' '+(totalLength+1).toFixed(4);
         ribbon.style.strokeDashoffset=(-tail).toFixed(4);
@@ -149,7 +149,7 @@
         const position=reverse?duration-elapsed:elapsed;
         if(position<flightDuration)renderFlight(clamp(position/flightDuration));
         else renderOrbit(clamp((position-flightDuration)/orbitDuration));
-        if(reverse&&elapsed>=duration-240)transition.classList.add('sp-transition-returning');
+        if(reverse&&elapsed>=duration-192)transition.classList.add('sp-transition-returning');
       }
       let frame=0;const started=performance.now();
       flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
