@@ -200,7 +200,7 @@ body { margin: 0; background: #eaf2fb; }
 #sergey-portfolio-concept .sp-project-transition::before{content:'';position:absolute;inset:0;background:var(--paper);animation:sp-transition-wash .24s ease-out both}
 #sergey-portfolio-concept .sp-transition-logo{position:relative;display:block;width:clamp(112px,24vw,152px);height:auto;overflow:visible;animation:sp-transition-wash .24s ease-out both}
 #sergey-portfolio-concept .sp-transition-blue{fill:none;stroke:#6082A8;stroke-width:41;stroke-linecap:round;stroke-linejoin:round}
-#sergey-portfolio-concept .sp-transition-orbit{fill:none;stroke:var(--corner);stroke-width:34;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5.7 94.3;stroke-dashoffset:0;visibility:hidden}
+#sergey-portfolio-concept .sp-transition-orbit{fill:none;stroke:var(--corner);stroke-width:34;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--sp-orbit-rest,5.7 94.3);stroke-dashoffset:0;visibility:hidden}
 #sergey-portfolio-concept .sp-transition-arrived .sp-transition-orbit{visibility:visible;animation:sp-corner-orbit 1s linear both}
 #sergey-portfolio-concept .sp-project-corner{position:absolute;left:14px;bottom:14px;z-index:3;width:34px;height:35px;pointer-events:none}
 #sergey-portfolio-concept .sp-project-corner path,#sergey-portfolio-concept .sp-transition-flyer path{fill:none;stroke:var(--corner);stroke-linecap:round;stroke-linejoin:round}
@@ -210,12 +210,12 @@ body { margin: 0; background: #eaf2fb; }
 #sergey-portfolio-concept .sp-transition-flyer{position:fixed;left:0;top:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
 @keyframes sp-transition-wash{from{opacity:0}to{opacity:1}}
 @keyframes sp-corner-orbit{
-  0%{stroke-dasharray:5.7 94.3;stroke-dashoffset:0}
+  0%{stroke-dasharray:var(--sp-orbit-rest,5.7 94.3);stroke-dashoffset:0}
   14%{stroke-dasharray:14 86;stroke-dashoffset:-9}
   26%{stroke-dasharray:19 81;stroke-dashoffset:-24}
   75%{stroke-dasharray:19 81;stroke-dashoffset:-77}
   89%{stroke-dasharray:12 88;stroke-dashoffset:-91}
-  100%{stroke-dasharray:5.7 94.3;stroke-dashoffset:-100}
+  100%{stroke-dasharray:var(--sp-orbit-rest,5.7 94.3);stroke-dashoffset:-100}
 }
 @media(max-width:680px){#sergey-portfolio-concept .sp-project-corner{left:12px;bottom:12px;width:30px;height:31px}}
 @media(prefers-reduced-motion:reduce){#sergey-portfolio-concept .sp-transition-orbit,#sergey-portfolio-concept .sp-transition-logo,#sergey-portfolio-concept .sp-project-transition::before{animation:none}}

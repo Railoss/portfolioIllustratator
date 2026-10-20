@@ -72,7 +72,10 @@
       const dx=targetCenter.x-sourceCenter.x,dy=targetCenter.y-sourceCenter.y,distance=Math.hypot(dx,dy);
       const ux=distance?dx/distance:1,uy=distance?dy/distance:0;
       let nx=-uy,ny=ux;if(ny>0){nx=-nx;ny=-ny}
-      const shape=[[443,838],[443,874],[443,895],[457,909],[479,909],[511,909]];
+      const sourcePath=corner.querySelector('path'),pathLength=sourcePath.getTotalLength();
+      const shape=Array.from({length:41},(_,i)=>{const p=sourcePath.getPointAtLength(pathLength*i/40);return [p.x,p.y]});
+      const rest=pathLength/transition.querySelector('.sp-transition-orbit').getTotalLength()*100;
+      transition.style.setProperty('--sp-orbit-rest',rest+' '+(100-rest));
       const start=shape.map(([x,y])=>({x:source.left+(x-423)*sourceScale,y:source.top+(y-818)*source.height/111}));
       const end=shape.map(([x,y])=>({x:logo.left+(x-403)*scale,y:logo.top+(y-244)*scale}));
       const projections=start.map(p=>(p.x-sourceCenter.x)*ux+(p.y-sourceCenter.y)*uy);
@@ -83,23 +86,32 @@
       flyingCorner.setAttribute('viewBox','0 0 '+window.innerWidth+' '+window.innerHeight);
       flyingCorner.setAttribute('preserveAspectRatio','none');flyingCorner.setAttribute('aria-hidden','true');
       const ribbon=document.createElementNS(svgNS,'path');flyingCorner.append(ribbon);transition.append(flyingCorner);
-      const clamp=x=>Math.max(0,Math.min(1,x)),out=x=>1-Math.pow(1-x,3),inOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-      const arc=Math.min(90,distance*.14),duration=620;
+      const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>x*x*x*(x*(x*6-15)+10);
+      const arc=Math.min(75,distance*.12),duration=720;
+      function smoothPath(points){
+        const xy=p=>p.x.toFixed(2)+','+p.y.toFixed(2);
+        let d='M'+xy(points[0]);
+        for(let i=0;i<points.length-1;i++){
+          const a=points[Math.max(0,i-1)],b=points[i],c=points[i+1],e=points[Math.min(points.length-1,i+2)];
+          const c1={x:b.x+(c.x-a.x)/6,y:b.y+(c.y-a.y)/6};
+          const c2={x:c.x-(e.x-b.x)/6,y:c.y-(e.y-b.y)/6};
+          d+=' C'+xy(c1)+' '+xy(c2)+' '+xy(c);
+        }
+        return d;
+      }
       function renderFlight(t){
-        // The leading edge shoots ahead while the trailing edge stays attached.
-        const head=out(clamp((t-.05)/.52)),tail=inOut(clamp((t-.26)/.62)),stretch=head-tail,blend=(head+tail)/2;
-        const settle=clamp((t-.88)/.12),spring=Math.sin(settle*Math.PI*2)*.12*(1-settle);
+        // Both ends ease in and out; the delayed tail creates a continuous stretch.
+        const head=ease(clamp((t-.02)/.63)),tail=ease(clamp((t-.19)/.81)),stretch=head-tail,blend=(head+tail)/2;
         const points=start.map((p,i)=>{
           const progress=tail+stretch*weights[i];
           const lx=(p.x-sourceCenter.x)*(1-blend)+(end[i].x-targetCenter.x)*blend;
           const ly=(p.y-sourceCenter.y)*(1-blend)+(end[i].y-targetCenter.y)*blend;
-          const along=(lx*ux+ly*uy)*(1+spring),across=(-lx*uy+ly*ux)*(1-.45*stretch-spring*.5);
+          const along=lx*ux+ly*uy,across=(-lx*uy+ly*ux)*(1-.35*stretch);
           const bend=Math.sin(Math.PI*progress)*arc;
           return {x:sourceCenter.x+dx*progress+ux*along-uy*across+nx*bend,y:sourceCenter.y+dy*progress+uy*along+ux*across+ny*bend};
         });
-        const xy=p=>p.x.toFixed(2)+','+p.y.toFixed(2);
-        ribbon.setAttribute('d','M'+xy(points[0])+' L'+xy(points[1])+' C'+xy(points[2])+' '+xy(points[3])+' '+xy(points[4])+' L'+xy(points[5]));
-        ribbon.style.strokeWidth=(34*(sourceScale*(1-blend)+scale*blend)*(1-.42*stretch)).toFixed(2)+'px';
+        ribbon.setAttribute('d',smoothPath(points));
+        ribbon.style.strokeWidth=(34*(sourceScale*(1-blend)+scale*blend)*(1-.3*stretch)).toFixed(2)+'px';
       }
       let frame=0;const started=performance.now();
       flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
