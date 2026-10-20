@@ -208,6 +208,9 @@ body { margin: 0; background: #eaf2fb; }
 #sergey-portfolio-concept .sp-project-is-opening .sp-project-corner{opacity:0}
 #sergey-portfolio-concept .sp-project-is-opening .sp-project-art{animation:none}
 #sergey-portfolio-concept .sp-transition-flyer{position:fixed;left:0;top:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
+#sergey-portfolio-concept .sp-transition-reverse::before,#sergey-portfolio-concept .sp-transition-reverse .sp-transition-logo{animation:none;opacity:1}
+#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning::before,#sergey-portfolio-concept .sp-transition-reverse.sp-transition-returning .sp-transition-logo{animation:sp-transition-wash .24s ease-in reverse both}
+#sergey-portfolio-concept .sp-transition-reverse.sp-transition-arrived .sp-transition-orbit{animation-direction:reverse}
 @keyframes sp-transition-wash{from{opacity:0}to{opacity:1}}
 @keyframes sp-corner-orbit{
   0%{stroke-dasharray:var(--sp-orbit-rest,5.7 94.3);stroke-dashoffset:0}

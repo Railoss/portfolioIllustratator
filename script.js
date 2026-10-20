@@ -3,7 +3,7 @@
     const root=document.getElementById('sergey-portfolio-concept');
     const {assets,projects,previews,dimensions}=window.PORTFOLIO_DATA;
     const home=root.querySelector('.sp-home'),detail=root.querySelector('.sp-case'),gallery=root.querySelector('.sp-case-gallery'),publications=root.querySelector('.sp-case-publications');
-    let previous=null,pending=null,transitionRun=0,flyerAnimation=null,flyingCorner=null,openingCard=null,transitionOverflow=null;
+    let previous=null,pending=null,transitionRun=0,flyerAnimation=null,flyingCorner=null,openingCard=null,transitionOverflow=null,transitionGutter=null,returnSnapshot=null;
     let homeTitle=document.title;
     const text=()=>window.PORTFOLIO_TEXT.current;
     const ui=key=>text()?.ui[key]||({zoom:'Увеличить',fit:'Показать целиком',release:'Ссылка на релиз',publications:'Публикации J’PAN',personal:'Проект',client:'Клиент'})[key];
@@ -41,23 +41,43 @@
       if(flyingCorner){flyingCorner.remove();flyingCorner=null}
       if(openingCard){openingCard.classList.remove('sp-project-is-opening');openingCard=null}
       if(transitionOverflow!==null){document.body.style.overflow=transitionOverflow;transitionOverflow=null}
-      transition.classList.remove('sp-transition-arrived');transition.hidden=true;
+      if(transitionGutter!==null){document.documentElement.style.scrollbarGutter=transitionGutter;transitionGutter=null}
+      transition.classList.remove('sp-transition-arrived','sp-transition-reverse','sp-transition-returning');transition.hidden=true;
+      if(returnSnapshot){
+        const snapshot=returnSnapshot;returnSnapshot=null;
+        home.hidden=snapshot.homeHidden;detail.hidden=snapshot.detailHidden;
+        window.scrollTo({left:snapshot.x,top:snapshot.y,behavior:'instant'});
+        return true;
+      }
+      return false;
     }
     function jump(id){cancelPending();if(location.hash==='#'+id)route();else location.hash=id}
-    function navigateWithLogo(hash,label,trigger){
+    function navigateWithLogo(hash,label,trigger,reverse=false){
       cancelPending();
       const run=transitionRun;
       function complete(){
         if(run!==transitionRun)return;
-        pending=null;
+        pending=null;returnSnapshot=null;
         if(location.hash!==hash)history.pushState(null,'',hash);
         route();
+        if(reverse&&trigger){trigger.scrollIntoView({block:'center',behavior:'instant'});trigger.focus({preventScroll:true})}
       }
       if(reduceMotion.matches){complete();return}
-      const corner=trigger?.querySelector('.sp-project-corner'),source=corner?.getBoundingClientRect();
       transition.setAttribute('aria-label',label);
+      transition.classList.toggle('sp-transition-reverse',reverse);
       transition.hidden=false;
+      transition.focus({preventScroll:true});
+      if(reverse&&trigger){
+        // Prepare the destination behind the opaque overlay before measuring it.
+        returnSnapshot={homeHidden:home.hidden,detailHidden:detail.hidden,x:window.scrollX,y:window.scrollY};
+        detail.hidden=true;home.hidden=false;
+        trigger.scrollIntoView({block:'center',behavior:'instant'});
+      }
+      // Keep the card in the same position while the page's scroll is locked.
+      transitionGutter=document.documentElement.style.scrollbarGutter;
+      document.documentElement.style.scrollbarGutter='stable';
       transitionOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+      const corner=trigger?.querySelector('.sp-project-corner'),source=corner?.getBoundingClientRect();
       function startOrbit(){
         if(run!==transitionRun)return;
         transition.classList.add('sp-transition-arrived');
@@ -89,9 +109,10 @@
       }).replace(/^\s*M[^a-z]+/i,'');
       const svgNS='http://www.w3.org/2000/svg';
       flyingCorner=document.createElementNS(svgNS,'svg');flyingCorner.setAttribute('class','sp-transition-flyer');
-      flyingCorner.setAttribute('viewBox','0 0 '+window.innerWidth+' '+window.innerHeight);
       flyingCorner.setAttribute('preserveAspectRatio','none');flyingCorner.setAttribute('aria-hidden','true');
       const ribbon=document.createElementNS(svgNS,'path');flyingCorner.append(ribbon);transition.append(flyingCorner);
+      const viewport=flyingCorner.getBoundingClientRect();
+      flyingCorner.setAttribute('viewBox','0 0 '+viewport.width+' '+viewport.height);
       ribbon.setAttribute('d',sourceD);
       const sourceLength=ribbon.getTotalLength();
       const approachD=sourceD+connector;
@@ -123,17 +144,24 @@
         const tail=arrival+orbitLength*offset/100;
         drawLine(tail,tail+orbitLength*length/100,34*scale);
       }
+      const duration=flightDuration+orbitDuration;
+      function renderElapsed(elapsed){
+        // Reuse the complete opening timeline backwards, including its orbit.
+        const position=reverse?duration-elapsed:elapsed;
+        if(position<flightDuration)renderFlight(clamp(position/flightDuration));
+        else renderOrbit(clamp((position-flightDuration)/orbitDuration));
+        if(reverse&&elapsed>=duration-240)transition.classList.add('sp-transition-returning');
+      }
       let frame=0;const started=performance.now();
       flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
       function step(now){
         if(run!==transitionRun)return;
-        const elapsed=Math.max(0,now-started);
-        if(elapsed<flightDuration)renderFlight(elapsed/flightDuration);
-        else renderOrbit(clamp((elapsed-flightDuration)/orbitDuration));
-        if(elapsed<flightDuration+orbitDuration)frame=requestAnimationFrame(step);
+        const elapsed=Math.min(duration,Math.max(0,now-started));
+        renderElapsed(elapsed);
+        if(elapsed<duration)frame=requestAnimationFrame(step);
         else{flyerAnimation=null;complete()}
       }
-      renderFlight(0);frame=requestAnimationFrame(step);
+      renderElapsed(0);frame=requestAnimationFrame(step);
     }
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal?'':' / J’PAN');
@@ -187,10 +215,10 @@
     }));
     root.querySelectorAll('[data-jump]').forEach(button=>button.addEventListener('click',()=>jump(button.dataset.jump)));
     root.querySelector('[data-home]').addEventListener('click',()=>{cancelPending();history.pushState(null,'',location.pathname+location.search);route();root.scrollIntoView({block:'start',behavior:'auto'})});
-    root.querySelector('[data-return]').addEventListener('click',()=>navigateWithLogo('#sp-work','Возвращаемся к работам'));
+    root.querySelector('[data-return]').addEventListener('click',()=>navigateWithLogo('#sp-work','Возвращаемся к работам',previous,true));
     root.addEventListener('keydown',event=>{
       if(event.key!=='Escape')return;
-      if(!transition.hidden){event.preventDefault();cancelPending();previous?.focus({preventScroll:true});return}
+      if(!transition.hidden){event.preventDefault();const returning=cancelPending();(returning?root.querySelector('[data-return]'):previous)?.focus({preventScroll:true});return}
       if(!viewer.open&&!detail.hidden)root.querySelector('[data-return]').click();
     });
     window.addEventListener('hashchange',route);
