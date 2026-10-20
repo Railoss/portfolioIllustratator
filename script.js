@@ -66,17 +66,50 @@
       }
       if(!corner||!source.width||source.bottom<=0||source.top>=window.innerHeight){startOrbit();return}
       openingCard=trigger;openingCard.classList.add('sp-project-is-opening');
-      flyingCorner=corner.cloneNode(true);flyingCorner.setAttribute('class','sp-transition-flyer');
-      Object.assign(flyingCorner.style,{left:source.left+'px',top:source.top+'px',width:source.width+'px',height:source.height+'px'});
-      transition.append(flyingCorner);
       const logo=transition.querySelector('.sp-transition-logo').getBoundingClientRect(),scale=logo.width/480;
-      const dx=logo.left+20*scale-source.left,dy=logo.top+574*scale-source.top,targetScale=108*scale/source.width;
-      flyerAnimation=flyingCorner.animate([
-        {transform:'translate(0,0) rotate(0deg) scale(1)'},
-        {transform:'translate('+dx*.55+'px,'+(dy*.55-48)+'px) rotate(-18deg) scale('+((1+targetScale)/2)+')',offset:.55},
-        {transform:'translate('+dx+'px,'+dy+'px) rotate(0deg) scale('+targetScale+')'}
-      ],{duration:420,easing:'cubic-bezier(.22,.8,.25,1)',fill:'forwards'});
-      flyerAnimation.finished.then(startOrbit).catch(()=>{});
+      const sourceScale=source.width/108,sourceCenter={x:source.left+source.width/2,y:source.top+source.height/2};
+      const targetCenter={x:logo.left+74*scale,y:logo.top+629.5*scale};
+      const dx=targetCenter.x-sourceCenter.x,dy=targetCenter.y-sourceCenter.y,distance=Math.hypot(dx,dy);
+      const ux=distance?dx/distance:1,uy=distance?dy/distance:0;
+      let nx=-uy,ny=ux;if(ny>0){nx=-nx;ny=-ny}
+      const shape=[[443,838],[443,874],[443,895],[457,909],[479,909],[511,909]];
+      const start=shape.map(([x,y])=>({x:source.left+(x-423)*sourceScale,y:source.top+(y-818)*source.height/111}));
+      const end=shape.map(([x,y])=>({x:logo.left+(x-403)*scale,y:logo.top+(y-244)*scale}));
+      const projections=start.map(p=>(p.x-sourceCenter.x)*ux+(p.y-sourceCenter.y)*uy);
+      const minProjection=Math.min(...projections),span=Math.max(...projections)-minProjection||1;
+      const weights=projections.map(p=>(p-minProjection)/span);
+      const svgNS='http://www.w3.org/2000/svg';
+      flyingCorner=document.createElementNS(svgNS,'svg');flyingCorner.setAttribute('class','sp-transition-flyer');
+      flyingCorner.setAttribute('viewBox','0 0 '+window.innerWidth+' '+window.innerHeight);
+      flyingCorner.setAttribute('preserveAspectRatio','none');flyingCorner.setAttribute('aria-hidden','true');
+      const ribbon=document.createElementNS(svgNS,'path');flyingCorner.append(ribbon);transition.append(flyingCorner);
+      const clamp=x=>Math.max(0,Math.min(1,x)),out=x=>1-Math.pow(1-x,3),inOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+      const arc=Math.min(90,distance*.14),duration=620;
+      function renderFlight(t){
+        // The leading edge shoots ahead while the trailing edge stays attached.
+        const head=out(clamp((t-.05)/.52)),tail=inOut(clamp((t-.26)/.62)),stretch=head-tail,blend=(head+tail)/2;
+        const settle=clamp((t-.88)/.12),spring=Math.sin(settle*Math.PI*2)*.12*(1-settle);
+        const points=start.map((p,i)=>{
+          const progress=tail+stretch*weights[i];
+          const lx=(p.x-sourceCenter.x)*(1-blend)+(end[i].x-targetCenter.x)*blend;
+          const ly=(p.y-sourceCenter.y)*(1-blend)+(end[i].y-targetCenter.y)*blend;
+          const along=(lx*ux+ly*uy)*(1+spring),across=(-lx*uy+ly*ux)*(1-.45*stretch-spring*.5);
+          const bend=Math.sin(Math.PI*progress)*arc;
+          return {x:sourceCenter.x+dx*progress+ux*along-uy*across+nx*bend,y:sourceCenter.y+dy*progress+uy*along+ux*across+ny*bend};
+        });
+        const xy=p=>p.x.toFixed(2)+','+p.y.toFixed(2);
+        ribbon.setAttribute('d','M'+xy(points[0])+' L'+xy(points[1])+' C'+xy(points[2])+' '+xy(points[3])+' '+xy(points[4])+' L'+xy(points[5]));
+        ribbon.style.strokeWidth=(34*(sourceScale*(1-blend)+scale*blend)*(1-.42*stretch)).toFixed(2)+'px';
+      }
+      let frame=0;const started=performance.now();
+      flyerAnimation={cancel:()=>cancelAnimationFrame(frame)};
+      function step(now){
+        if(run!==transitionRun)return;
+        const t=clamp((now-started)/duration);renderFlight(t);
+        if(t<1)frame=requestAnimationFrame(step);
+        else{flyerAnimation=null;startOrbit()}
+      }
+      renderFlight(0);frame=requestAnimationFrame(step);
     }
     function openProject(key,trigger){
       const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal?'':' / J’PAN');
