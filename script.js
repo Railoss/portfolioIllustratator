@@ -30,7 +30,6 @@
     viewer.addEventListener('close',()=>{document.body.style.overflow=savedOverflow;viewerImage.removeAttribute('src');setZoom(false)});
     viewer.addEventListener('click',event=>{if(event.target===viewer){const rect=viewer.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)closeImage()}});
     viewer.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();stepImage(event.key==='ArrowRight'?1:-1)}});
-    root.querySelector('[data-image="hero"]').addEventListener('click',()=>openImage([['hero',root.querySelector('.sp-hero img').alt]],0));
     function announce(text){root.querySelector('[data-announcement]').textContent=text}
     function scrollToGroup(heading,behavior){heading.style.scrollMarginTop=(sectionNav.hidden?12:sectionNav.getBoundingClientRect().height+12)+'px';heading.scrollIntoView({block:'start',behavior})}
     function showHome(){closeImage();detail.hidden=true;home.hidden=false;document.title=homeTitle;announce('Главная страница портфолио')}
@@ -164,9 +163,8 @@
       renderElapsed(0);frame=requestAnimationFrame(step);
     }
     function openProject(key,trigger){
-      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal?'':' / J’PAN');
-      ['label','title','description','client','role','format'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
-      root.querySelector('[data-case-client]').previousElementSibling.textContent=ui(p.personal?'personal':'client');
+      const p=projects[key];if(!p)return;closeImage();previous=trigger||root.querySelector('[data-project="'+key+'"]');document.title=p.title+' — '+(text()?.home.brandName||'Сергей Белик')+(p.personal||p.mixed?'':' / J’PAN');
+      ['label','title','description'].forEach(field=>root.querySelector('[data-case-'+field+']').textContent=p[field]);
       gallery.replaceChildren();gallery.classList.toggle('sp-case-wide',!!p.wide);gallery.classList.toggle('sp-case-illustration',!!p.personal);
       function publicationLink(label,url){const a=document.createElement('a');a.textContent=ui('release')+' ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='sp-release-link cursor-interaction';a.title=label;a.setAttribute('aria-label',ui('release')+': '+label);return a}
       publications.replaceChildren();
@@ -180,7 +178,7 @@
         }
         if(p.subheadings?.[index]){const heading=document.createElement('h4');heading.className='sp-gallery-subheading';heading.textContent=p.subheadings[index];gallery.append(heading)}
         const figure=document.createElement('figure'),visual=document.createElement('button'),img=document.createElement('img'),caption=document.createElement('figcaption'),label=document.createElement('span');
-        figure.classList.toggle('sp-media-published',!!published);if(wide)figure.style.gridColumn='1 / -1';
+        figure.classList.toggle('sp-media-published',!!published);figure.classList.toggle('sp-media-featured',asset==='imaginationFlood');if(wide)figure.style.gridColumn='1 / -1';
         visual.type='button';visual.className='sp-media-art';visual.setAttribute('aria-label','Увеличить: '+alt);visual.addEventListener('click',()=>openImage(p.media,index));
         img.src=previews[asset];img.alt=alt;img.dataset.asset=asset;img.loading='lazy';img.decoding='async';[img.width,img.height]=dimensions[asset];label.textContent=alt;visual.append(img);caption.append(label);
         if(Number.isInteger(linkIndex)){const [linkLabel,url]=p.proof.links[linkIndex];if(!usedLinks.has(url)){caption.append(publicationLink(linkLabel,url));usedLinks.add(url)}}
@@ -202,7 +200,8 @@
     }
     function route(){
       cancelPending();
-      const [key,section]=location.hash.startsWith('#project-')?location.hash.slice(9).split('/'):[];
+      let [key,section]=location.hash.startsWith('#project-')?location.hash.slice(9).split('/'):[];
+      if(key==='imagination-flood'){key='selected';section='0';history.replaceState(null,'','#project-selected/0')}
       if(key&&Object.hasOwn(projects,key)){openProject(key);if(section){const index=key==='menus'&&section==='halloween'?'10':section,heading=root.querySelector('#case-'+key+'-'+CSS.escape(index));if(heading)scrollToGroup(heading,'instant')}return}
       const wasDetail=!detail.hidden;showHome();
       const target=location.hash==='#sp-work'?root.querySelector('#sp-work'):location.hash==='#sp-about'?root.querySelector('#sp-about'):root;

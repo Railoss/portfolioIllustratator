@@ -74,30 +74,6 @@ window.PORTFOLIO_DATA = {
     "restored70": "assets/proofs/sailor-live-4.svg"
   },
   "projects": {
-    "imagination-flood": {
-      "title": "Imagination Flood",
-      "label": "Личный проект / Векторная иллюстрация · 2026",
-      "description": "Личная иллюстрация о книжном магазине, где книги оживают, а из раскрытых страниц выплёскивается море.",
-      "client": "Личный проект",
-      "role": "Векторная иллюстрация",
-      "format": "Цифровая иллюстрация",
-      "personal": true,
-      "wide": true,
-      "proof": {
-        "links": []
-      },
-      "media": [
-        [
-          "imaginationFlood",
-          "Imagination Flood · Полная иллюстрация",
-          null,
-          false,
-          true
-        ]
-      ],
-      "groups": {},
-      "subheadings": {}
-    },
     "menus": {
       "title": "Сезонные меню",
       "label": "J’PAN / Обложки и вёрстка меню",
@@ -512,9 +488,9 @@ window.PORTFOLIO_DATA = {
     },
     "selected": {
       "title": "Другие работы",
-      "label": "J’PAN / Отдельные иллюстрации",
-      "description": "Отдельные иллюстрации для сезонных и праздничных проектов J’PAN.",
-      "client": "J’PAN",
+      "label": "Личные и коммерческие иллюстрации",
+      "description": "Личная иллюстрация Imagination Flood и отдельные работы для сезонных и праздничных проектов J’PAN.",
+      "client": "Личные проекты и J’PAN",
       "role": "Иллюстрация",
       "format": "Отдельные иллюстрации",
       "proof": {
@@ -534,6 +510,13 @@ window.PORTFOLIO_DATA = {
         ]
       },
       "media": [
+        [
+          "imaginationFlood",
+          "Imagination Flood · Полная иллюстрация",
+          null,
+          false,
+          true
+        ],
         [
           "hero",
           "Зимняя панорама — иллюстрация для интерьерного панно. Зимой заменяла весеннюю композицию.",
@@ -577,13 +560,18 @@ window.PORTFOLIO_DATA = {
         ]
       ],
       "groups": {
-        "0": "Зимняя панорама",
-        "1": "Дракон",
-        "2": "Открытка",
-        "4": "Новогодняя иллюстрация",
-        "5": "Вилли Вонка"
+        "0": "Imagination Flood",
+        "1": "Зимняя панорама",
+        "2": "Дракон",
+        "3": "Открытка",
+        "5": "Новогодняя иллюстрация",
+        "6": "Вилли Вонка"
       },
-      "subheadings": {}
+      "subheadings": {},
+      "groupDescriptions": {
+        "0": "Личная иллюстрация о книжном магазине, где книги оживают, а из раскрытых страниц выплёскивается море."
+      },
+      "mixed": true
     },
     "sailor": {
       "title": "Sailor Moon",
