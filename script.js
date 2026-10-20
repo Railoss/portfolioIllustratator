@@ -60,6 +60,7 @@
       p.media.forEach(([asset,alt,linkIndex,published,wide],index)=>{
         if(p.groups?.[index]){
           const heading=document.createElement('h3'),link=document.createElement('button');heading.className='sp-gallery-heading';heading.id='case-'+key+'-'+index;heading.textContent=p.groups[index];gallery.append(heading);
+          if(p.groupDescriptions?.[index]){const description=document.createElement('p');description.className='sp-gallery-description';description.textContent=p.groupDescriptions[index];gallery.append(description)}
           link.type='button';link.textContent=p.groups[index];link.addEventListener('click',()=>{history.pushState(null,'','#project-'+key+'/'+(key==='menus'&&index===10?'halloween':index));scrollToGroup(heading,reduceMotion.matches?'instant':'smooth')});sectionNav.append(link);
         }
         if(p.subheadings?.[index]){const heading=document.createElement('h4');heading.className='sp-gallery-subheading';heading.textContent=p.subheadings[index];gallery.append(heading)}

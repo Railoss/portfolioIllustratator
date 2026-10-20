@@ -218,3 +218,6 @@ body { margin: 0; background: light-dark(#f4f1eb, #22231f); }
 #sergey-portfolio-concept .sp-imagination img{width:100%;height:100%;object-fit:contain}
 #sergey-portfolio-concept .sp-case-gallery.sp-case-illustration .sp-media-art{height:auto;aspect-ratio:3600 / 2546;padding:0;background:none}
 #sergey-portfolio-concept .sp-case-gallery.sp-case-illustration img{width:100%;height:100%;max-height:none;object-fit:contain}
+
+/* Narrative copy beside its menu group. */
+#sergey-portfolio-concept .sp-gallery-description{grid-column:1 / -1;width:100%;max-width:760px;font-size:16px;line-height:1.6;white-space:pre-line;color:var(--sub);text-align:center}
