@@ -78,9 +78,8 @@
       transition.style.setProperty('--sp-orbit-rest',rest+' '+(100-rest));
       const start=shape.map(([x,y])=>({x:source.left+(x-423)*sourceScale,y:source.top+(y-818)*source.height/111}));
       const end=shape.map(([x,y])=>({x:logo.left+(x-403)*scale,y:logo.top+(y-244)*scale}));
-      const projections=start.map(p=>(p.x-sourceCenter.x)*ux+(p.y-sourceCenter.y)*uy);
-      const minProjection=Math.min(...projections),span=Math.max(...projections)-minProjection||1;
-      const weights=projections.map(p=>(p-minProjection)/span);
+      // The path ends at the lower-right tip: this end always leads.
+      const weights=shape.map((_,i)=>i/(shape.length-1));
       const svgNS='http://www.w3.org/2000/svg';
       flyingCorner=document.createElementNS(svgNS,'svg');flyingCorner.setAttribute('class','sp-transition-flyer');
       flyingCorner.setAttribute('viewBox','0 0 '+window.innerWidth+' '+window.innerHeight);
@@ -104,11 +103,9 @@
         const head=ease(clamp((t-.02)/.63)),tail=ease(clamp((t-.19)/.81)),stretch=head-tail,blend=(head+tail)/2;
         const points=start.map((p,i)=>{
           const progress=tail+stretch*weights[i];
-          const lx=(p.x-sourceCenter.x)*(1-blend)+(end[i].x-targetCenter.x)*blend;
-          const ly=(p.y-sourceCenter.y)*(1-blend)+(end[i].y-targetCenter.y)*blend;
-          const along=lx*ux+ly*uy,across=(-lx*uy+ly*ux)*(1-.35*stretch);
           const bend=Math.sin(Math.PI*progress)*arc;
-          return {x:sourceCenter.x+dx*progress+ux*along-uy*across+nx*bend,y:sourceCenter.y+dy*progress+uy*along+ux*across+ny*bend};
+          // A zero progress keeps the upper-left endpoint exactly on its card.
+          return {x:p.x+(end[i].x-p.x)*progress+nx*bend,y:p.y+(end[i].y-p.y)*progress+ny*bend};
         });
         ribbon.setAttribute('d',smoothPath(points));
         ribbon.style.strokeWidth=(34*(sourceScale*(1-blend)+scale*blend)*(1-.3*stretch)).toFixed(2)+'px';
