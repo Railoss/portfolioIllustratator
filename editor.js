@@ -2,7 +2,7 @@
   'use strict';
   const api=window.PORTFOLIO_TEXT,$=selector=>document.querySelector(selector);
   const form=$('#fields'),selector=$('#section'),frame=$('#preview'),status=$('#save-status');
-  let base,copy,section='home',saveTimer,previewTimer,ready=false;
+  let base,copy,section='home',saveTimer,previewTimer;
   const labels={home:'Главная',about:'Обо мне',footer:'Шапка и подвал',ui:'Кнопки и подписи'};
   const homeFields={
     home:[['heading','Главный заголовок',3,'Enter переносит текст на новую строку.'],['intro','Основной текст',6],['introExtra','Дополнительный абзац',4],['heroCaption','Подпись под панорамой'],['worksTitle','Заголовок раздела работ'],['worksLabel','Подзаголовок раздела работ']],
@@ -27,8 +27,14 @@
     clearTimeout(saveTimer);
     try{localStorage.setItem(api.DRAFT_KEY,JSON.stringify({version:1,savedAt:new Date().toISOString(),baseCopy:base,copy}));report('Черновик сохранён на этом устройстве · '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}))}
     catch{report('Браузер не сохранил черновик. Скачай его копию.',true)}
+    sendPreview();
   }
-  function sendPreview(){if(ready)frame.contentWindow.postMessage({type:'portfolio-text-preview',copy},location.origin)}
+  function sendPreview(){
+    const preview=frame.contentWindow;
+    if(!preview?.PORTFOLIO_TEXT?.published)return;
+    preview.PORTFOLIO_TEXT.apply(copy);
+    preview.dispatchEvent(new preview.Event('portfolio-text-updated'));
+  }
   function changed(){
     report('Сохраняю черновик…');clearTimeout(saveTimer);saveTimer=setTimeout(save,250);
     clearTimeout(previewTimer);previewTimer=setTimeout(sendPreview,180);
@@ -77,7 +83,7 @@
     const url=new URL('./',location.href);url.searchParams.set('text-preview','1');url.hash=copy.projects[section]?'project-'+section:section==='about'?'sp-about':section==='ui'?'project-imagination-flood':'';return url;
   }
   function goToSection(key){
-    save();section=key;render();ready=false;const url=previewUrl();frame.src=url.href;$('#full-preview').href=url.href;
+    save();section=key;render();const url=previewUrl();frame.src=url.href;$('#full-preview').href=url.href;
   }
   function navigation(){
     $('#section-list').replaceChildren();selector.replaceChildren();
@@ -117,8 +123,8 @@
   document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
   $('#mobile-preview').addEventListener('click',()=>{const active=$('#workspace').classList.toggle('preview-only');$('#mobile-preview').textContent=active?'Вернуться к полям':'Предпросмотр'});
   form.addEventListener('submit',event=>event.preventDefault());
-  frame.addEventListener('load',()=>{ready=true;sendPreview()});
-  addEventListener('message',event=>{if(event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='portfolio-text-ready'){ready=true;sendPreview()}});
+  frame.addEventListener('load',sendPreview);
+  addEventListener('message',event=>{if(event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='portfolio-text-ready')sendPreview()});
   addEventListener('pagehide',()=>{if(copy)save()});
   try{
     base=await api.fetchPublished();const saved=api.draft();
