@@ -3,7 +3,7 @@
     const root=document.getElementById('sergey-portfolio-concept');
     const {assets,projects,previews,dimensions}=window.PORTFOLIO_DATA;
     const home=root.querySelector('.sp-home'),detail=root.querySelector('.sp-case'),gallery=root.querySelector('.sp-case-gallery'),publications=root.querySelector('.sp-case-publications');
-    let previous=null,pending=null,transitionRun=0,flyerAnimation=null,flyingCorner=null,openingCard=null,transitionOverflow=null,transitionGutter=null,returnSnapshot=null;
+    let previous=null,pending=null,transitionRun=0,flyerAnimation=null,flyingCorner=null,openingCard=null,transitionOverflow=null,transitionGutter=null,returnSnapshot=null,openingOrigin=null;
     let homeTitle=document.title;
     const text=()=>window.PORTFOLIO_TEXT.current;
     const ui=key=>text()?.ui[key]||({zoom:'Увеличить',fit:'Показать целиком',release:'Ссылка на релиз',publications:'Публикации J’PAN',personal:'Проект',client:'Клиент'})[key];
@@ -54,12 +54,19 @@
     function navigateWithLogo(hash,label,trigger,reverse=false){
       cancelPending();
       const run=transitionRun;
+      const returnOrigin=reverse&&openingOrigin?.card===trigger?openingOrigin:null;
+      if(!reverse&&trigger)openingOrigin={card:trigger,x:window.scrollX,y:window.scrollY,width:window.innerWidth,height:window.innerHeight};
+      function positionReturnCard(){
+        if(returnOrigin&&returnOrigin.width===window.innerWidth&&returnOrigin.height===window.innerHeight)
+          window.scrollTo({left:returnOrigin.x,top:returnOrigin.y,behavior:'instant'});
+        else trigger?.scrollIntoView({block:'center',behavior:'instant'});
+      }
       function complete(){
         if(run!==transitionRun)return;
         pending=null;returnSnapshot=null;
         if(location.hash!==hash)history.pushState(null,'',hash);
         route();
-        if(reverse&&trigger){trigger.scrollIntoView({block:'center',behavior:'instant'});trigger.focus({preventScroll:true})}
+        if(reverse&&trigger){positionReturnCard();trigger.focus({preventScroll:true})}
       }
       if(reduceMotion.matches){complete();return}
       transition.setAttribute('aria-label',label);
@@ -70,7 +77,7 @@
         // Prepare the destination behind the opaque overlay before measuring it.
         returnSnapshot={homeHidden:home.hidden,detailHidden:detail.hidden,x:window.scrollX,y:window.scrollY};
         detail.hidden=true;home.hidden=false;
-        trigger.scrollIntoView({block:'center',behavior:'instant'});
+        positionReturnCard();
       }
       // Keep the card in the same position while the page's scroll is locked.
       transitionGutter=document.documentElement.style.scrollbarGutter;
@@ -124,7 +131,8 @@
       ribbon.setAttribute('d',lapD+cornerCommands(end));
       const totalLength=ribbon.getTotalLength(),cornerLength=totalLength-arrival-orbitLength;
       const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>x*x*x*(x*(x*6-15)+10);
-      const flightDuration=.8*Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=800;
+      const flightDuration=returnOrigin?.flightDuration??.8*Math.max(580,Math.min(900,380+distance*.9)),orbitDuration=800;
+      if(!reverse&&openingOrigin)openingOrigin.flightDuration=flightDuration;
       function drawLine(tail,head,width){
         ribbon.style.strokeDasharray=Math.max(.001,head-tail).toFixed(4)+' '+(totalLength+1).toFixed(4);
         ribbon.style.strokeDashoffset=(-tail).toFixed(4);

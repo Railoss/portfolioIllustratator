@@ -651,7 +651,7 @@ window.PORTFOLIO_DATA = {
       "subheadings": {}
     },
     "series": {
-      "title": "Кухни Мира",
+      "title": "Кухни мира",
       "label": "J’PAN / Серийная иллюстрация",
       "description": "Серия иллюстраций в формате почтовых марок для ивента J’PAN, посвящённого кухням разных стран. Марки дарили гостям.",
       "client": "J’PAN",
@@ -660,7 +660,7 @@ window.PORTFOLIO_DATA = {
       "proof": {
         "links": [
           [
-            "Кухни Мира · Telegram",
+            "Кухни мира · Telegram",
             "https://t.me/jpan_bistro/2047"
           ]
         ]
@@ -668,29 +668,29 @@ window.PORTFOLIO_DATA = {
       "media": [
         [
           "worldOne",
-          "Кухни Мира — 1"
+          "Кухни мира — 1"
         ],
         [
           "worldTwo",
-          "Кухни Мира — 2"
+          "Кухни мира — 2"
         ],
         [
           "worldThree",
-          "Кухни Мира — 3"
+          "Кухни мира — 3"
         ],
         [
           "worldFour",
-          "Кухни Мира — 4"
+          "Кухни мира — 4"
         ],
         [
           "worldProofOne",
-          "Кухни Мира — публикация J’PAN",
+          "Кухни мира — публикация J’PAN",
           0,
           true
         ],
         [
           "worldProofTwo",
-          "Кухни Мира — публикация J’PAN",
+          "Кухни мира — публикация J’PAN",
           0,
           true
         ]
